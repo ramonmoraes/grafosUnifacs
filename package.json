@@ -2,10 +2,11 @@
   "name": "grafosUnifacs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon start",
-    "start": "tsc && node src/index.js",
+    "ts-node": "ts-node src/index.ts",
+    "start": "tsc && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/ramonmoraes/grafosUnifacs#readme",
   "devDependencies": {
     "nodemon": "^1.18.10",
+    "ts-node": "^8.0.3",
     "typescript": "^3.3.4000"
   }
 }
