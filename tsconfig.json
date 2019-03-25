@@ -2,7 +2,7 @@
   "compilerOptions": {
     "noImplicitAny": true,
     "module": "commonJS",
-    "target": "es5"
+    "target": "es6"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*", "index.ts"]
 }

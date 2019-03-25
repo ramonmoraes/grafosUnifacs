@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon start",
+    "start": "tsc && node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +18,9 @@
   "bugs": {
     "url": "https://github.com/ramonmoraes/grafosUnifacs/issues"
   },
-  "homepage": "https://github.com/ramonmoraes/grafosUnifacs#readme"
+  "homepage": "https://github.com/ramonmoraes/grafosUnifacs#readme",
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "typescript": "^3.3.4000"
+  }
 }
