@@ -43,20 +43,19 @@ class Grafo {
 
         this.nodes.forEach((otherNode: GraphNode) => {
           if (node === otherNode) return;
-          if (attr in node.attributes) {
-            const newArray = Array.isArray(otherNode.attributes[attr])
-              ? otherNode.attributes[attr]
-              : [otherNode.attributes[attr]];
+          if (!(attr in node.attributes)) return;
+          const newArray = Array.isArray(otherNode.attributes[attr])
+            ? otherNode.attributes[attr]
+            : [otherNode.attributes[attr]];
 
-            values.forEach((val: any) => {
-              if (newArray.includes(val) || val in newArray) {
-                this.links.push({
-                  identifier: attr,
-                  connections: [node, otherNode]
-                });
-              }
-            });
-          }
+          values.forEach((val: any) => {
+            if (newArray.includes(val) || val in newArray) {
+              this.links.push({
+                identifier: attr,
+                connections: [node, otherNode]
+              });
+            }
+          });
         });
       });
     });
