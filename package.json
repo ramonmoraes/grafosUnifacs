@@ -7,7 +7,7 @@
     "dev": "nodemon start",
     "ts-node": "ts-node src/index.ts",
     "start": "tsc && node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,9 @@
   },
   "homepage": "https://github.com/ramonmoraes/grafosUnifacs#readme",
   "devDependencies": {
-    "nodemon": "^1.18.10",
-    "ts-node": "^8.0.3",
-    "typescript": "^3.3.4000"
+    "jest": "24.5.0",
+    "nodemon": "1.18.10",
+    "ts-node": "8.0.3",
+    "typescript": "3.3.4000"
   }
 }
