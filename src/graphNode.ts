@@ -6,7 +6,7 @@ export default class GraphNode {
 
   constructor({
     identifier,
-    attributes
+    attributes = {}
   }: {
     identifier: string;
     attributes?: object;
