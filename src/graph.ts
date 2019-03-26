@@ -1,4 +1,4 @@
-import GraphNode from './graphNode';
+import GraphNode from "./graphNode";
 
 export type GraphLinks = {
   identifier: string;
@@ -25,7 +25,6 @@ export default class Grafo {
           if (node === otherNode) return;
           if (!otherNode.attributes || !(attr in otherNode.attributes)) return;
 
-
           const newArray = Array.isArray(otherNode.attributes[attr])
             ? otherNode.attributes[attr]
             : [otherNode.attributes[attr]];
@@ -41,6 +40,23 @@ export default class Grafo {
         });
       });
     });
+  };
+
+  getLinkBetweenNodes = (node1: GraphNode, node2: GraphNode) => {
+    return node1.attributes
+      .map((attributeKey: string) => {
+        if (
+          attributeKey in node2.attributes &&
+          node2.attributes[attributeKey] === node1.attributes[attributeKey]
+        ) {
+          return {
+            identifier: attributeKey,
+            connections: [node1, node2]
+          };
+        }
+        return null;
+      })
+      .filter((validLink: any) => validLink);
   };
 
   addNode = (node: GraphNode) => {
