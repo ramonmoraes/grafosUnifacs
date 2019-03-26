@@ -11,7 +11,6 @@ export default class Grafo {
 
   constructor(nodes: GraphNode[]) {
     this.nodes = nodes;
-    this.createLinks();
   }
 
   createLinks = () => {
@@ -24,7 +23,8 @@ export default class Grafo {
 
         this.nodes.forEach((otherNode: GraphNode) => {
           if (node === otherNode) return;
-          if (!(attr in node.attributes)) return;
+          if (!otherNode.attributes || !(attr in otherNode.attributes)) return;
+
 
           const newArray = Array.isArray(otherNode.attributes[attr])
             ? otherNode.attributes[attr]
@@ -45,7 +45,6 @@ export default class Grafo {
 
   addNode = (node: GraphNode) => {
     this.nodes.push(node);
-    this.createLinks();
   };
 
   removeNodeByIdentifier = (identifier: string) => {
@@ -54,7 +53,6 @@ export default class Grafo {
       console.log("Node not found");
     } else {
       this.nodes = newNodes;
-      this.createLinks();
     }
   };
 
