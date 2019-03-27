@@ -16,14 +16,15 @@ export default class Grafo {
   }
 
   createLinks = () => {
-    this.links = [];
+    let links: GraphLinks[] = [];
     this.nodes.forEach((node: GraphNode) => {
       this.nodes.forEach((otherNode: GraphNode) => {
         if (node === otherNode) return null;
-        const links = this.getLinkBetweenNodes(node, otherNode);
-        this.links = [...this.links, ...links];
+        links = [...this.links, ...this.getLinkBetweenNodes(node, otherNode)];
       });
     });
+
+    this.links = [... new Set(links)]
   };
 
   getLinkBetweenNodes = (node1: GraphNode, node2: GraphNode) => {
