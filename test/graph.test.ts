@@ -39,8 +39,8 @@ describe("Graph", () => {
     expect(links[0].connections[1]).toEqual(graph.nodes[1]);
   });
 
-  test.only("createLinks", () => {
+  test("createLinks", () => {
     graph.createLinks();
-    console.log(graph.links);
+    expect(graph.links.length).toEqual(1);
   });
 });
