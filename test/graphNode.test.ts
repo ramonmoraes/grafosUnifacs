@@ -18,7 +18,8 @@ describe("GraphNode", () => {
     const node = new GraphNode({
       identifier: "foo",
       attributes: {
-        key: "val"
+        key: "val",
+        anotherKey: [1, 2, 3]
       }
     });
     expect(node).toMatchSnapshot();

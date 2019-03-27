@@ -13,6 +13,11 @@ export default class GraphNode {
   }) {
     this.identifier = identifier;
     this.attributes = attributes;
+
+    Object.keys(attributes).forEach((attr: string) => {
+      if (Array.isArray(this.attributes[attr])) return;
+      this.attributes[attr] = [this.attributes[attr]];
+    });
   }
 
   removeAttribute = (attr: string) => {

@@ -3,7 +3,14 @@
 exports[`GraphNode snapshot match 1`] = `
 GraphNode {
   "attributes": Object {
-    "key": "val",
+    "anotherKey": Array [
+      1,
+      2,
+      3,
+    ],
+    "key": Array [
+      "val",
+    ],
   },
   "identifier": "foo",
   "removeAttribute": [Function],
