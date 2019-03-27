@@ -1,7 +1,9 @@
 import GraphNode from "./graphNode";
+import { flat } from "./utils";
 
 export type GraphLinks = {
   identifier: string;
+  value: any;
   connections: GraphNode[];
 };
 
@@ -29,11 +31,12 @@ export default class Grafo {
             ? otherNode.attributes[attr]
             : [otherNode.attributes[attr]];
 
-          values.forEach((val: any) => {
-            if (newArray.includes(val) || val in newArray) {
+          values.forEach((value: any) => {
+            if (newArray.includes(value) || value in newArray) {
               this.links.push({
                 identifier: attr,
-                connections: [node, otherNode]
+                connections: [node, otherNode],
+                value
               });
             }
           });
@@ -41,22 +44,26 @@ export default class Grafo {
       });
     });
   };
-
+  
   getLinkBetweenNodes = (node1: GraphNode, node2: GraphNode) => {
-    return node1.attributes
-      .map((attributeKey: string) => {
-        if (
-          attributeKey in node2.attributes &&
-          node2.attributes[attributeKey] === node1.attributes[attributeKey]
-        ) {
-          return {
-            identifier: attributeKey,
-            connections: [node1, node2]
-          };
-        }
-        return null;
-      })
-      .filter((validLink: any) => validLink);
+    const links = Object.keys(node1.attributes).map((attributeKey: string) => {
+      if (!(attributeKey in node2.attributes)) return null;
+
+      return node1.attributes[attributeKey]
+        .map((value: any) =>
+          value in node2.attributes[attributeKey] ||
+          node2.attributes[attributeKey].includes(value)
+            ? {
+                identifier: attributeKey,
+                value,
+                connections: [node1, node2]
+              }
+            : null
+        )
+        .filter((validLink: any) => validLink);
+    });
+    
+    return flat(links);
   };
 
   addNode = (node: GraphNode) => {

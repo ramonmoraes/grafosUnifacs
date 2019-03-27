@@ -8,11 +8,11 @@ describe("Graph", () => {
     const nodes: GraphNode[] = [
       new GraphNode({
         identifier: "dart",
-        attributes: { lang: ["en", "fr", "pt", "es"], age: 21 }
+        attributes: { lang: ["en"], }
       }),
       new GraphNode({
         identifier: "ismelo",
-        attributes: { lang: ["en", "fr", "al"], age: 12 }
+        attributes: { lang: ["en"]}
       })
     ];
     graph = new Graph(nodes);
@@ -28,5 +28,18 @@ describe("Graph", () => {
     expect(graph.nodes.length).toEqual(2);
     graph.removeNodeByIdentifier("ismelo");
     expect(graph.nodes.length).toEqual(1);
+  });
+
+  test.only("getLinksBetweenNodes", () => {
+    const links = graph.getLinkBetweenNodes(
+      graph.nodes[0],
+      graph.nodes[1]
+    );
+
+    expect(links.length).toEqual(1);
+    expect(links[0].identifier).toEqual('lang');
+    expect(links[0].value).toEqual('en');
+    expect(links[0].connections[0]).toEqual(graph.nodes[0])
+    expect(links[0].connections[1]).toEqual(graph.nodes[1])
   });
 });
