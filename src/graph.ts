@@ -18,33 +18,14 @@ export default class Grafo {
   createLinks = () => {
     this.links = [];
     this.nodes.forEach((node: GraphNode) => {
-      Object.keys(node.attributes).forEach((attr: string) => {
-        const values = Array.isArray(node.attributes[attr])
-          ? node.attributes[attr]
-          : [node.attributes[attr]];
-
-        this.nodes.forEach((otherNode: GraphNode) => {
-          if (node === otherNode) return;
-          if (!otherNode.attributes || !(attr in otherNode.attributes)) return;
-
-          const newArray = Array.isArray(otherNode.attributes[attr])
-            ? otherNode.attributes[attr]
-            : [otherNode.attributes[attr]];
-
-          values.forEach((value: any) => {
-            if (newArray.includes(value) || value in newArray) {
-              this.links.push({
-                identifier: attr,
-                connections: [node, otherNode],
-                value
-              });
-            }
-          });
-        });
+      this.nodes.forEach((otherNode: GraphNode) => {
+        if (node === otherNode) return null;
+        const links = this.getLinkBetweenNodes(node, otherNode);
+        this.links = [...this.links, ...links];
       });
     });
   };
-  
+
   getLinkBetweenNodes = (node1: GraphNode, node2: GraphNode) => {
     const links = Object.keys(node1.attributes).map((attributeKey: string) => {
       if (!(attributeKey in node2.attributes)) return null;
@@ -62,7 +43,7 @@ export default class Grafo {
         )
         .filter((validLink: any) => validLink);
     });
-    
+
     return flat(links);
   };
 
