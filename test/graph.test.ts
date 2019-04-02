@@ -3,7 +3,7 @@ import GraphNode from "../src/graphNode";
 
 describe("Graph", () => {
   let graph: Graph;
-  
+
   beforeEach(() => {
     const nodes: GraphNode[] = [
       new GraphNode({
@@ -12,7 +12,7 @@ describe("Graph", () => {
       }),
       new GraphNode({
         identifier: "ismelo",
-        attributes: { lang: ["en"] }
+        attributes: { lang: ["en", "pt"] }
       })
     ];
     graph = new Graph(nodes);
@@ -44,19 +44,34 @@ describe("Graph", () => {
     graph.createLinks();
     expect(graph.links.length).toEqual(1);
     graph.addNode(
-      new GraphNode({identifier: "qq", attributes: { lang: ["en"]}})
+      new GraphNode({ identifier: "qq", attributes: { lang: ["en"] } })
     );
-    graph.createLinks()
+    graph.createLinks();
     expect(graph.links.length).toEqual(3);
   });
 
-  test("getNodeOrderByIdentifier", () => {
-    // graph.addNode(
-    //   new GraphNode({identifier: "foo", attributes: { lang: ["en"]}})
-    // );
-    // expect(graph.links.length).toEqual(2);
+  test("getLinksByIdentifier", () => {
+    graph.createLinks();
+    let links = graph.getLinksByIdentifier("ismelo");
+    expect(links).toMatchSnapshot();
 
-    // const order = graph.getNodeOrderByIdentifier("ismelo");
-    // expect(order).toEqual(2);
+    graph.addNode(
+      new GraphNode({ identifier: "foo", attributes: { lang: ["pt"] } })
+    );
+    
+    graph.createLinks();
+    links = graph.getLinksByIdentifier("ismelo");
+    expect(links).toMatchSnapshot();
   });
+
+  // test("getNodeOrderByIdentifier", () => {
+  //   graph.addNode(
+  //     new GraphNode({identifier: "foo", attributes: { lang: ["en"]}})
+  //   );
+  //   graph.createLinks();
+  //   expect(graph.links.length).toEqual(2);
+
+  //   const order = graph.getNodeOrderByIdentifier("ismelo");
+  //   expect(order).toEqual(2);
+  // });
 });
