@@ -58,20 +58,22 @@ describe("Graph", () => {
     graph.addNode(
       new GraphNode({ identifier: "foo", attributes: { lang: ["pt"] } })
     );
-    
+
     graph.createLinks();
     links = graph.getLinksByIdentifier("ismelo");
     expect(links).toMatchSnapshot();
   });
 
-  // test("getNodeOrderByIdentifier", () => {
-  //   graph.addNode(
-  //     new GraphNode({identifier: "foo", attributes: { lang: ["en"]}})
-  //   );
-  //   graph.createLinks();
-  //   expect(graph.links.length).toEqual(2);
-
-  //   const order = graph.getNodeOrderByIdentifier("ismelo");
-  //   expect(order).toEqual(2);
-  // });
+  test("getNodeOrderByIdentifier", () => {
+    graph.createLinks();
+    let order = graph.getNodeOrderByIdentifier("ismelo");
+    expect(order).toEqual(1);
+    
+    graph.addNode(
+      new GraphNode({ identifier: "foo", attributes: { lang: ["en"] } })
+    );
+    graph.createLinks();
+    order = graph.getNodeOrderByIdentifier("ismelo");
+    expect(order).toEqual(2);
+  });
 });
