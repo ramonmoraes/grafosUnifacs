@@ -84,19 +84,6 @@ export default class Grafo {
   }
 
   getNodeOrderByIdentifier = (identifier: string): number => {
-    const nodes = this.nodes.filter(node => identifier === node.identifier);
-    if (nodes.length !== 1) {
-      console.log("Node not found");
-    }
-
-    const node = nodes[0];
-    let order = 0;
-    this.links.forEach((link: GraphLinks) => {
-      const connections = link.connections.filter(
-        (linkNode: GraphNode) => linkNode === node
-      );
-      order = order + connections.length;
-    });
-    return order;
+    return this.getLinksByIdentifier(identifier).length;
   };
 }
