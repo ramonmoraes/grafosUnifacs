@@ -1,5 +1,5 @@
 import GraphNode from "./graphNode";
-import { flat, isEqual } from "./utils";
+import { flat, arrayContain } from "./utils";
 
 export type GraphLinks = {
   identifier: string;
@@ -39,14 +39,13 @@ export default class Grafo {
 
       return node1.attributes[attributeKey]
         .map((value: any) =>
-          value in node2.attributes[attributeKey] ||
-          node2.attributes[attributeKey].includes(value)
-            ? {
-                identifier: attributeKey,
-                value,
-                connections: [node1, node2]
-              }
-            : null
+          arrayContain(node2.attributes[attributeKey], value)
+          ? {
+              identifier: attributeKey,
+              value,
+              connections: [node1, node2]
+            }
+          : null
         )
         .filter((validLink: any) => validLink);
     });
@@ -75,6 +74,14 @@ export default class Grafo {
       node[0].removeAttribute(attr);
     }
   };
+
+  getLinksByIdentifier = (identifier: string) => {
+    const nodes = this.nodes.filter(node => identifier === node.identifier);
+    if (nodes.length !== 1) {
+      console.log("Node not found");
+    }
+    return this.links.filter((l: GraphLinks) => arrayContain(l.connections, nodes[0]))
+  }
 
   getNodeOrderByIdentifier = (identifier: string): number => {
     const nodes = this.nodes.filter(node => identifier === node.identifier);
