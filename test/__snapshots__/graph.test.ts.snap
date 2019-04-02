@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Graph getLinksByIdentifier 1`] = `
+Array [
+  Object {
+    "connections": Array [
+      GraphNode {
+        "attributes": Object {
+          "lang": Array [
+            "en",
+            "pt",
+          ],
+        },
+        "identifier": "ismelo",
+        "removeAttribute": [Function],
+      },
+      GraphNode {
+        "attributes": Object {
+          "lang": Array [
+            "en",
+          ],
+        },
+        "identifier": "dart",
+        "removeAttribute": [Function],
+      },
+    ],
+    "identifier": "lang",
+    "value": "en",
+  },
+]
+`;
+
+exports[`Graph getLinksByIdentifier 2`] = `
+Array [
+  Object {
+    "connections": Array [
+      GraphNode {
+        "attributes": Object {
+          "lang": Array [
+            "en",
+            "pt",
+          ],
+        },
+        "identifier": "ismelo",
+        "removeAttribute": [Function],
+      },
+      GraphNode {
+        "attributes": Object {
+          "lang": Array [
+            "en",
+          ],
+        },
+        "identifier": "dart",
+        "removeAttribute": [Function],
+      },
+    ],
+    "identifier": "lang",
+    "value": "en",
+  },
+  Object {
+    "connections": Array [
+      GraphNode {
+        "attributes": Object {
+          "lang": Array [
+            "pt",
+          ],
+        },
+        "identifier": "foo",
+        "removeAttribute": [Function],
+      },
+      GraphNode {
+        "attributes": Object {
+          "lang": Array [
+            "en",
+            "pt",
+          ],
+        },
+        "identifier": "ismelo",
+        "removeAttribute": [Function],
+      },
+    ],
+    "identifier": "lang",
+    "value": "pt",
+  },
+]
+`;
