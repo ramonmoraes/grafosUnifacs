@@ -19,7 +19,7 @@ export function isEqual(arg1: any, arg2: any): boolean {
   const keys2 = Object.keys(arg2);
 
   for (let key of keys1) {
-    if (key in keys2 || keys2.includes(key)) continue;
+    if (arrayContain(keys2, key)) continue;
     return false;
   }
 
@@ -41,4 +41,8 @@ export function isEqual(arg1: any, arg2: any): boolean {
   }
 
   return true;
+}
+
+export function arrayContain(array: any[], arg:any) {
+  return arg in array || array.includes(arg) 
 }
