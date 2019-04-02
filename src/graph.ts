@@ -1,5 +1,5 @@
 import GraphNode from "./graphNode";
-import { flat } from "./utils";
+import { flat, isEqual } from "./utils";
 
 export type GraphLinks = {
   identifier: string;
@@ -17,17 +17,23 @@ export default class Grafo {
 
   createLinks = () => {
     let links: GraphLinks[] = [];
+    this.links = [];
+
     this.nodes.forEach((node: GraphNode) => {
       this.nodes.forEach((otherNode: GraphNode) => {
         if (node === otherNode) return null;
-        links = [...this.links, ...this.getLinkBetweenNodes(node, otherNode)];
+        links = [...links, ...this.getLinkBetweenNodes(node, otherNode)];
       });
     });
 
-    this.links = [... new Set(links)]
+    this.links = this.removeDuplicatesLinks(links);
   };
 
-  getLinkBetweenNodes = (node1: GraphNode, node2: GraphNode) => {
+  removeDuplicatesLinks = (links: GraphLinks[]): GraphLinks[] => {
+    return [...new Set(links)].filter((l: GraphLinks, index: number) => index%2 != 0);
+  };
+
+  getLinkBetweenNodes = (node1: GraphNode, node2: GraphNode): GraphLinks[] => {
     const links = Object.keys(node1.attributes).map((attributeKey: string) => {
       if (!(attributeKey in node2.attributes)) return null;
 
@@ -62,11 +68,28 @@ export default class Grafo {
   };
 
   removeLinkByIdentifier = (identifier: string, attr: string) => {
-    const node = this.nodes.filter(node => identifier === identifier);
+    const node = this.nodes.filter(node => identifier === node.identifier);
     if (node.length !== 1) {
       console.log("Node not found");
     } else {
       node[0].removeAttribute(attr);
     }
+  };
+
+  getNodeOrderByIdentifier = (identifier: string): number => {
+    const nodes = this.nodes.filter(node => identifier === node.identifier);
+    if (nodes.length !== 1) {
+      console.log("Node not found");
+    }
+
+    const node = nodes[0];
+    let order = 0;
+    this.links.forEach((link: GraphLinks) => {
+      const connections = link.connections.filter(
+        (linkNode: GraphNode) => linkNode === node
+      );
+      order = order + connections.length;
+    });
+    return order;
   };
 }
