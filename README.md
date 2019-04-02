@@ -12,12 +12,12 @@ contemple funcionalidades específicas de um grafo.
 
 | Task | DoneWith |
 |------|----------|
-| Inclusão de um grafo com seus vértices e arestas | constructor + createLinks()|
-| Teste a existência de uma aresta entre 2 vértices | 
+| Inclusão de um grafo com seus vértices e arestas | constructor + createLinks|
+| Teste a existência de uma aresta entre 2 vértices | createLinks | 
 | Permita a inserção e a remoção de vértices | addNone && removeNodeByIdentifier |
 | Permita a inserção e a remoção de uma aresta entre 2 vértices | removeLinkByIdentifier |
 | Obtenha os vértices adjacentes a um determinado vértice | |
-| Obtenha o grau de um determinado vértice | |
+| Obtenha o grau de um determinado vértice | getNodeOrderByIdentifier |
 | Obtenha o grau médio, o grau mínimo e o grau máximo | |
 | Identifique se o grafo é conexo | |
 
