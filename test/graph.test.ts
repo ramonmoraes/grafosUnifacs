@@ -3,19 +3,21 @@ import GraphNode from "../src/graphNode";
 
 describe("Graph", () => {
   let graph: Graph;
+  let ismeloNode: GraphNode;
+  let dartNode: GraphNode;
 
   beforeEach(() => {
-    const nodes: GraphNode[] = [
-      new GraphNode({
-        identifier: "dart",
-        attributes: { lang: ["en"] }
-      }),
-      new GraphNode({
-        identifier: "ismelo",
-        attributes: { lang: ["en", "pt"] }
-      })
-    ];
-    graph = new Graph(nodes);
+    ismeloNode = new GraphNode({
+      identifier: "ismelo",
+      attributes: { lang: ["en", "pt"] }
+    });
+
+    dartNode = new GraphNode({
+      identifier: "dart",
+      attributes: { lang: ["en"] }
+    });
+
+    graph = new Graph([ismeloNode, dartNode]);
   });
 
   test("addNode", () => {
@@ -68,12 +70,21 @@ describe("Graph", () => {
     graph.createLinks();
     let order = graph.getNodeOrderByIdentifier("ismelo");
     expect(order).toEqual(1);
-    
+
+    order = graph.getNodeOrderByIdentifier("dart");
+    expect(order).toEqual(1);
+
     graph.addNode(
       new GraphNode({ identifier: "foo", attributes: { lang: ["en"] } })
     );
+
     graph.createLinks();
     order = graph.getNodeOrderByIdentifier("ismelo");
     expect(order).toEqual(2);
+  });
+
+  test("getAdjacentNodesByIdentifier", () => {
+    graph.createLinks();
+    expect(graph.getAdjacentNodesByIdentifier("dart")[0]).toEqual(ismeloNode)
   });
 });
