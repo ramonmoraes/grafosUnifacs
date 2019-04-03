@@ -1,5 +1,5 @@
 import GraphNode from "./graphNode";
-import { flat, arrayContain } from "./utils";
+import { flat, arrayContain, uniqueArray} from "./utils";
 
 export type GraphLinks = {
   identifier: string;
@@ -97,7 +97,7 @@ export default class Grafo {
   };
 
   getAdjacentNodesByIdentifier = (identifier: string): GraphNode[] => {
-    return [... new Set(flat(this.getLinksByIdentifier(identifier).map(l => l.connections)))];
+    return uniqueArray(flat(this.getLinksByIdentifier(identifier).map(l => l.connections)));
   };
 
   calcGraphOrder = () => {
@@ -109,18 +109,27 @@ export default class Grafo {
     }
   }
 
-  breadthFirstSearch(node:GraphNode = this.nodes[0], exploredNodes: GraphNode[] = []) {
-    if (exploredNodes.length >= this.nodes.length) {
+  breadthFirstSearch(node:GraphNode = this.nodes[0], exploredNodes: GraphNode[] = []):boolean {
+    if (!arrayContain(exploredNodes, node)) {
+      exploredNodes.push(node);
+    }
+   
+    const connectedNodes = this.getAdjacentNodesByIdentifier(node.identifier);
+    const toBeExploredNodes = connectedNodes.filter(n => !arrayContain(exploredNodes, n));
+
+    if (toBeExploredNodes.length > 0) {
+      for(let eNode of toBeExploredNodes) {
+        this.breadthFirstSearch(eNode, exploredNodes)
+      }
+    };
+    
+    const done = exploredNodes.length >= this.nodes.length;
+    if (done) {
       console.log("Graph is connected, done fully BFS");
       console.table(
         exploredNodes
       );
-      return;
     }
-
-    exploredNodes.push(node);
-    const connectedNodes = this.getAdjacentNodesByIdentifier(node.identifier);
-    const toBeExploredNodes = connectedNodes.filter(n => !arrayContain(exploredNodes, n));
-    toBeExploredNodes.forEach((n:GraphNode) => this.breadthFirstSearch(n, exploredNodes));
+    return done;
   }
 }
