@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Graph getAdjacentNodesByIdentifier 1`] = `
+Object {
+  "max": 2,
+  "med": 1.3333333333333333,
+  "min": 1,
+}
+`;
+
 exports[`Graph getLinksByIdentifier 1`] = `
 Array [
   Object {

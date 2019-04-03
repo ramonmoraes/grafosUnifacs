@@ -16,9 +16,9 @@ contemple funcionalidades específicas de um grafo.
 | Teste a existência de uma aresta entre 2 vértices | createLinks | 
 | Permita a inserção e a remoção de vértices | addNone && removeNodeByIdentifier |
 | Permita a inserção e a remoção de uma aresta entre 2 vértices | removeLinkByIdentifier |
-| Obtenha os vértices adjacentes a um determinado vértice | |
+| Obtenha os vértices adjacentes a um determinado vértice | getAdjacentNodesByIdentifier |
 | Obtenha o grau de um determinado vértice | getNodeOrderByIdentifier |
-| Obtenha o grau médio, o grau mínimo e o grau máximo | |
+| Obtenha o grau médio, o grau mínimo e o grau máximo | calcGraphOrder |
 | Identifique se o grafo é conexo | |
 
 # V2

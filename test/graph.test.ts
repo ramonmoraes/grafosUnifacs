@@ -87,4 +87,12 @@ describe("Graph", () => {
     graph.createLinks();
     expect(graph.getAdjacentNodesByIdentifier("dart")[0]).toEqual(ismeloNode)
   });
+
+  test("calcGraphOrder", () => {
+    graph.addNode(
+      new GraphNode({ identifier: "foo", attributes: { lang: ["pt"] } })
+    )
+    graph.createLinks();
+    expect(graph.calcGraphOrder()).toMatchSnapshot();
+  });
 });

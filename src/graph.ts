@@ -98,4 +98,13 @@ export default class Grafo {
   getAdjacentNodesByIdentifier = (identifier: string): GraphNode[] => {
     return flat(this.getLinksByIdentifier(identifier).map(l => l.connections));
   };
+
+  calcGraphOrder = () => {
+    const nodeOrders: number[] = this.nodes.map(node => this.getNodeOrderByIdentifier(node.identifier)).sort();
+    return {
+      "min": nodeOrders[0],
+      "max": nodeOrders[nodeOrders.length - 1],
+      "med": nodeOrders.reduce((total, val) => total= total + val)/nodeOrders.length
+    }
+  }
 }
