@@ -46,3 +46,7 @@ export function isEqual(arg1: any, arg2: any): boolean {
 export function arrayContain(array: Array<any>, arg:any) {
   return arg in array || array.includes(arg) 
 }
+
+export function uniqueArray (arr: Array<any>) {
+  return [... new Set(arr)]
+}
