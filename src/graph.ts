@@ -97,7 +97,7 @@ export default class Grafo {
   };
 
   getAdjacentNodesByIdentifier = (identifier: string): GraphNode[] => {
-    return flat(this.getLinksByIdentifier(identifier).map(l => l.connections));
+    return [... new Set(flat(this.getLinksByIdentifier(identifier).map(l => l.connections)))];
   };
 
   calcGraphOrder = () => {
@@ -107,5 +107,20 @@ export default class Grafo {
       "max": nodeOrders[nodeOrders.length - 1],
       "med": nodeOrders.reduce((total, val) => total= total + val)/nodeOrders.length
     }
+  }
+
+  breadthFirstSearch(node:GraphNode = this.nodes[0], exploredNodes: GraphNode[] = []) {
+    if (exploredNodes.length >= this.nodes.length) {
+      console.log("Graph is connected, done fully BFS");
+      console.table(
+        exploredNodes
+      );
+      return;
+    }
+
+    exploredNodes.push(node);
+    const connectedNodes = this.getAdjacentNodesByIdentifier(node.identifier);
+    const toBeExploredNodes = connectedNodes.filter(n => !arrayContain(exploredNodes, n));
+    toBeExploredNodes.forEach((n:GraphNode) => this.breadthFirstSearch(n, exploredNodes));
   }
 }
