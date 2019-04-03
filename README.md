@@ -27,4 +27,7 @@ contemple funcionalidades específicas de um grafo.
 
 - [ ] Adicionar uma funcionalidade na solução adotada para identificar a existência de um caminho de Euler.
 
-- [ ] Criar um padrão para entrada de dados a partir da leitura de um arquivo para geração do grafo.
+- [X] Criar um padrão para entrada de dados a partir da leitura de um arquivo para geração do grafo.
+````
+getGraphFromFile // example.json
+```
