@@ -1,7 +1,14 @@
 # Grafos Unifacs
 [![Build Status](https://travis-ci.org/ramonmoraes/grafosUnifacs.svg?branch=master)](https://travis-ci.org/ramonmoraes/grafosUnifacs)
 
-
+### Developing
+```
+npm run dev
+```
+### Testing
+```
+npm test
+```
 ## Features
 
 Implementar um TAD (Tipo Abstrato de Dados), onde
