@@ -26,7 +26,7 @@ contemple funcionalidades específicas de um grafo.
 | Obtenha os vértices adjacentes a um determinado vértice | getAdjacentNodesByIdentifier |
 | Obtenha o grau de um determinado vértice | getNodeOrderByIdentifier |
 | Obtenha o grau médio, o grau mínimo e o grau máximo | calcGraphOrder |
-| Identifique se o grafo é conexo | |
+| Identifique se o grafo é conexo | breadthFirstSearch |
 
 # V2
 
