@@ -20,7 +20,8 @@ export default class Grafo {
     this.nodes.forEach((node: GraphNode) => {
       this.nodes.forEach((otherNode: GraphNode) => {
         if (node === otherNode) return null;
-        this.links = [...this.links, ...this.getLinkBetweenNodes(node, otherNode)];
+        this.links = [...this.links, ...this.getLinkBetweenNodes(node, otherNode)]
+        .filter(valid => valid);
       });
     });
   };
@@ -88,7 +89,7 @@ export default class Grafo {
     const node = this.getNodeByIdentifier(identifier);
     return node
       ? this.links.filter((l: GraphLinks) => arrayContain(l.connections, node))
-      : null;
+      : [];
   };
 
   getNodeOrderByIdentifier = (identifier: string): number => {
