@@ -43,6 +43,6 @@ export function isEqual(arg1: any, arg2: any): boolean {
   return true;
 }
 
-export function arrayContain(array: any[], arg:any) {
+export function arrayContain(array: Array<any>, arg:any) {
   return arg in array || array.includes(arg) 
 }
