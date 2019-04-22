@@ -4,6 +4,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "module": "commonJS",
+    "lib": [ "es7", "dom" ],
     "target": "es6",
     "outDir": "dist"
   },
