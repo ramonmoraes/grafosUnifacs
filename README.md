@@ -27,17 +27,6 @@ contemple funcionalidades específicas de um grafo.
 | Obtenha o grau de um determinado vértice | getNodeOrderByIdentifier |
 | Obtenha o grau médio, o grau mínimo e o grau máximo | calcGraphOrder |
 | Identifique se o grafo é conexo | breadthFirstSearch |
-
-# V2
-
-- [ ] Implementar a solução para a atividade 1 apresentando a Matriz de Adjacências.
-
-- [x] Adicionar uma funcionalidade na solução adotada para identificar a existência de um caminho de Euler.
-```
-hasEulerianPath
-```
-
-- [X] Criar um padrão para entrada de dados a partir da leitura de um arquivo para geração do grafo.
-```
-getGraphFromFile // example.json
-```
+| Adicionar uma funcionalidade na solução adotada para identificar a existência de um caminho de Euler | hasEulerianPath |
+| Criar um padrão para entrada de dados a partir da leitura de um arquivo para geração do grafo | getGraphFromFile // example.json |
+| Implementar a solução para a atividade 1 apresentando a Matriz de Adjacências. | |
