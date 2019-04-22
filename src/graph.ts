@@ -113,7 +113,7 @@ export default class Grafo {
     if (!arrayContain(exploredNodes, node)) {
       exploredNodes.push(node);
     }
-   
+
     const connectedNodes = this.getAdjacentNodesByIdentifier(node.identifier);
     const toBeExploredNodes = connectedNodes.filter(n => !arrayContain(exploredNodes, n));
 
@@ -122,7 +122,7 @@ export default class Grafo {
         this.breadthFirstSearch(eNode, exploredNodes)
       }
     };
-    
+
     const done = exploredNodes.length >= this.nodes.length;
     if (done) {
       console.log("Graph is connected, done fully BFS");
@@ -131,5 +131,20 @@ export default class Grafo {
       );
     }
     return done;
+  }
+
+  hasEulerianPath = () => {
+    const isConnected = this.breadthFirstSearch();
+    if (!isConnected) return false;
+    let evenLinks = 0;
+    this.nodes.forEach( (node: GraphNode) => {
+      const identifier = node.identifier;
+      const nodeLinks = this.getLinksByIdentifier(identifier);
+      if (nodeLinks.length %2 !== 0) {
+        evenLinks++;
+      }
+    });
+
+    return evenLinks == 0 || evenLinks == 2
   }
 }
