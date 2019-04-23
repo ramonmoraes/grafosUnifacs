@@ -9,19 +9,4 @@ function getGraphFromFilePath(file:any): Graph {
 
 const g = getGraphFromFilePath(example);
 g.createLinks();
-
-const table = (links: GraphLinks[]) => {
-  console.table(
-    links.map((x:any) => ({
-      identifier: x.identifier,
-      value: x.value,
-      connections: x.connections.map((n:GraphNode) => n.identifier)
-    }))
-  )
-}
-
-console.log("Tabela completa")
-table(g.links)
-
-console.log("Tabela filtrada pelo valor 'fr'")
-table(g.links.filter(link => link.value === "fr"));
+g.logTable();
