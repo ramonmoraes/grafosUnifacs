@@ -147,4 +147,23 @@ export default class Grafo {
 
     return evenLinks == 0 || evenLinks == 2
   }
+
+  logTable = ({filterValue = "", filterIdentifier = ""} = {}) => {
+    let filteredLinks = this.links;
+    if (filterValue) {
+      filteredLinks = filteredLinks.filter(link => link.value == filterValue);
+    }
+
+    if (filterIdentifier) {
+      filteredLinks = filteredLinks.filter(link => link.identifier == filterIdentifier);
+    }
+
+    console.table(
+      filteredLinks.map((x:any) => ({
+        identifier: x.identifier,
+        value: x.value,
+        connections: x.connections.map((n:GraphNode) => n.identifier)
+      }))
+    )
+  }
 }
