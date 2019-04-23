@@ -1,5 +1,6 @@
 import GraphNode from "./graphNode";
-import { flat, arrayContain, uniqueArray} from "./utils";
+import { flat, arrayContain, uniqueArray } from "./utils";
+import eul from "./eulerian";
 
 export type GraphLinks = {
   identifier: string;
@@ -20,8 +21,10 @@ export default class Grafo {
     this.nodes.forEach((node: GraphNode) => {
       this.nodes.forEach((otherNode: GraphNode) => {
         if (node === otherNode) return null;
-        this.links = [...this.links, ...this.getLinkBetweenNodes(node, otherNode)]
-        .filter(valid => valid);
+        this.links = [
+          ...this.links,
+          ...this.getLinkBetweenNodes(node, otherNode)
+        ].filter(valid => valid);
       });
     });
   };
@@ -48,15 +51,20 @@ export default class Grafo {
   };
 
   containsLink = (givenLink: GraphLinks): boolean => {
-    return this.links.filter((link: GraphLinks) => {
-      const sameIdentifier = link.identifier === givenLink.identifier;
-      const sameValue = link.value === givenLink.value;
-      const sameLinks = link.connections.filter(node => arrayContain(givenLink.connections, node))
-      const containsLink = sameIdentifier && sameValue && sameLinks.length === 2;
-      if (containsLink) return true;
-      return false;
-    }).length > 0;
-  }
+    return (
+      this.links.filter((link: GraphLinks) => {
+        const sameIdentifier = link.identifier === givenLink.identifier;
+        const sameValue = link.value === givenLink.value;
+        const sameLinks = link.connections.filter(node =>
+          arrayContain(givenLink.connections, node)
+        );
+        const containsLink =
+          sameIdentifier && sameValue && sameLinks.length === 2;
+        if (containsLink) return true;
+        return false;
+      }).length > 0
+    );
+  };
 
   addNode = (node: GraphNode) => {
     this.nodes.push(node);
@@ -97,38 +105,47 @@ export default class Grafo {
   };
 
   getAdjacentNodesByIdentifier = (identifier: string): GraphNode[] => {
-    return uniqueArray(flat(this.getLinksByIdentifier(identifier).map(l => l.connections)));
+    return uniqueArray(
+      flat(this.getLinksByIdentifier(identifier).map(l => l.connections))
+    );
   };
 
   calcGraphOrder = () => {
-    const nodeOrders: number[] = this.nodes.map(node => this.getNodeOrderByIdentifier(node.identifier)).sort();
+    const nodeOrders: number[] = this.nodes
+      .map(node => this.getNodeOrderByIdentifier(node.identifier))
+      .sort();
     return {
-      "min": nodeOrders[0],
-      "max": nodeOrders[nodeOrders.length - 1],
-      "med": nodeOrders.reduce((total, val) => total= total + val)/nodeOrders.length
-    }
-  }
+      min: nodeOrders[0],
+      max: nodeOrders[nodeOrders.length - 1],
+      med:
+        nodeOrders.reduce((total, val) => (total = total + val)) /
+        nodeOrders.length
+    };
+  };
 
-  breadthFirstSearch(node:GraphNode = this.nodes[0], exploredNodes: GraphNode[] = []):boolean {
+  breadthFirstSearch(
+    node: GraphNode = this.nodes[0],
+    exploredNodes: GraphNode[] = []
+  ): boolean {
     if (!arrayContain(exploredNodes, node)) {
       exploredNodes.push(node);
     }
 
     const connectedNodes = this.getAdjacentNodesByIdentifier(node.identifier);
-    const toBeExploredNodes = connectedNodes.filter(n => !arrayContain(exploredNodes, n));
+    const toBeExploredNodes = connectedNodes.filter(
+      n => !arrayContain(exploredNodes, n)
+    );
 
     if (toBeExploredNodes.length > 0) {
-      for(let eNode of toBeExploredNodes) {
-        this.breadthFirstSearch(eNode, exploredNodes)
+      for (let eNode of toBeExploredNodes) {
+        this.breadthFirstSearch(eNode, exploredNodes);
       }
-    };
+    }
 
     const done = exploredNodes.length >= this.nodes.length;
     if (done) {
       console.log("Graph is connected, done fully BFS");
-      console.table(
-        exploredNodes
-      );
+      console.table(exploredNodes);
     }
     return done;
   }
@@ -137,14 +154,19 @@ export default class Grafo {
     const isConnected = this.breadthFirstSearch();
     if (!isConnected) return false;
     let evenLinks = 0;
-    this.nodes.forEach( (node: GraphNode) => {
+    this.nodes.forEach((node: GraphNode) => {
       const identifier = node.identifier;
       const nodeLinks = this.getLinksByIdentifier(identifier);
-      if (nodeLinks.length %2 !== 0) {
+      if (nodeLinks.length % 2 !== 0) {
         evenLinks++;
       }
     });
 
-    return evenLinks == 0 || evenLinks == 2
-  }
+    return evenLinks == 0 || evenLinks == 2;
+  };
+
+  getEulerianPath = () => {
+    const links = this.links.map(l => l.connections.map(c => c.identifier));
+    return eul({ edges: links, directed: true });
+  };
 }
