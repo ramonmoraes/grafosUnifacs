@@ -37,8 +37,5 @@ export default function matrix (graph: Graph, filteredValue:string = "fr"): numb
     matrix[pos2][pos1] = 1
   });
   
-  matrix.forEach((element: any) => {
-    console.log(element)
-  });
   return matrix
 }
