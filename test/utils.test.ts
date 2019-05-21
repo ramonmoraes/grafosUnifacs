@@ -1,6 +1,6 @@
 import { isEqual } from "../src/utils";
 
-describe.only("Utils", () => {
+describe("Utils", () => {
   test("isEqual", () => {
     expect(isEqual({ n: "n" }, { n: "n" })).toBeTruthy();
     expect(isEqual({ n: "n", i: 22 }, { n: "n", i: 23 })).toBeFalsy();
