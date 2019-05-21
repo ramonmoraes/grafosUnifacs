@@ -1,5 +1,7 @@
 import GraphNode from './graphNode';
 import Graph, { GraphLinks } from './graph';
+import matrix, {getEmptyMatrix, getGraphPositionMap} from './matrix';
+
 import example from '../example.json';
 
 function getGraphFromFilePath(file:any): Graph {
@@ -9,19 +11,5 @@ function getGraphFromFilePath(file:any): Graph {
 
 const g = getGraphFromFilePath(example);
 g.createLinks();
-
-const table = (links: GraphLinks[]) => {
-  console.table(
-    links.map((x:any) => ({
-      identifier: x.identifier,
-      value: x.value,
-      connections: x.connections.map((n:GraphNode) => n.identifier)
-    }))
-  )
-}
-
-console.log("Tabela completa")
-table(g.links)
-
-console.log("Tabela filtrada pelo valor 'fr'")
-table(g.links.filter(link => link.value === "fr"));
+const m = matrix(g);
+m.forEach(arr => console.log(arr))
