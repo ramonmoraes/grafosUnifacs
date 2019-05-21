@@ -147,4 +147,16 @@ export default class Grafo {
 
     return evenLinks == 0 || evenLinks == 2
   }
+
+  getSimplifiedTable = (filterValue: string = "") => {
+    const simplified = this.links.map((x:any) => ({
+      identifier: x.identifier,
+      value: x.value,
+      connections: x.connections.map((n:GraphNode) => n.identifier)
+    }))
+
+    return filterValue
+    ? simplified.filter(link => link.value === filterValue)
+    : simplified;
+  }
 }
