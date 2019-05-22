@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Marix get matrix 1`] = `
+exports[`Marix get adjacentGraphMatrix 1`] = `
 Array [
   Array [
     0,
@@ -9,6 +9,19 @@ Array [
   Array [
     0,
     0,
+  ],
+]
+`;
+
+exports[`Marix multiply matrixes 1`] = `
+Array [
+  Array [
+    0,
+    1,
+  ],
+  Array [
+    0,
+    1,
   ],
 ]
 `;

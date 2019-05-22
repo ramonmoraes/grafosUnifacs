@@ -1,6 +1,6 @@
 import GraphNode from './graphNode';
 import Graph, { GraphLinks } from './graph';
-import matrix, {getEmptyMatrix, getGraphPositionMap} from './matrix';
+import adjacentGraphMatrix, {multiplyMatrix} from './matrix';
 
 import example from '../example.json';
 
@@ -9,7 +9,21 @@ function getGraphFromFilePath(file:any): Graph {
   return new Graph(nodes);
 }
 
-const g = getGraphFromFilePath(example);
-g.createLinks();
-const m = matrix(g);
-m.forEach(arr => console.log(arr))
+// const g = getGraphFromFilePath(example);
+// g.createLinks();
+// const m = adjacentGraphMatrix(g);
+// m.forEach(arr => console.log(arr))
+
+
+const m1 = [
+  [0, 1],
+  [0, 1]
+];
+const m2 = [
+  [0, 0],
+  [0, 1]
+]
+
+const sample = multiplyMatrix(m1, m2);
+console.log(sample)
+
