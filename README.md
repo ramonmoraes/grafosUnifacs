@@ -30,3 +30,15 @@ contemple funcionalidades específicas de um grafo.
 | Adicionar uma funcionalidade na solução adotada para identificar a existência de um caminho de Euler | hasEulerianPath |
 | Criar um padrão para entrada de dados a partir da leitura de um arquivo para geração do grafo | getGraphFromFile // example.json |
 | Implementar a solução para a atividade 1 apresentando a Matriz de Adjacências. | |
+
+# V2
+| Task | DoneWith |
+|------|----------|
+| Implementar o Algoritmo de Warshall | |
+| Implementar o Algoritmo de Dijkstra | |
+| Pesquisar e implementar o Algoritmo de Bellman-Ford | |
+| Pesquisar e implementar o Algoritmo de Floyd | |
+| Preparar uma apresentação comparando os resultados do | |
+| algoritmo de Dijkstra; Bellman-Ford e Floyd. | |
+| Identificar quantos componentes conectados existem no grafo | |
+| Identificar quantos vértices existem no maior componente | |
