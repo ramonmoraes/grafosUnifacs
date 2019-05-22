@@ -1,6 +1,6 @@
 import Graph, { GraphLinks } from "../src/graph";
 import GraphNode from "../src/graphNode";
-import adjacentGraphMatrix, { multiplyMatrix } from '../src/matrix';
+import adjacentGraphMatrix, { multiplyMatrix, sumMatrix } from '../src/matrix';
 
 
 describe("Marix", () => {
@@ -40,6 +40,7 @@ describe("Marix", () => {
     const sample = multiplyMatrix(m1, m2);
     expect(sample).toMatchSnapshot();
   });
+
   test("multiply boolean matrixes", () => {
     const m1 = [
       [1, 1, 0],
@@ -53,6 +54,22 @@ describe("Marix", () => {
     ]
     const sample = multiplyMatrix(m1, m2, true);
     expect(sample).toMatchSnapshot();
-  })
+  });
+
+  test("sum matrixes", () => {
+    const m1 = [
+      [1, 1, 0],
+      [0, 1, 0],
+      [0, 0, 1]
+    ];
+    const m2 = [
+      [1, 0, 0],
+      [1, 1, 1],
+      [0, 0, 1]
+    ]
+    
+    const sample = sumMatrix(m1, m2);
+    expect(sample).toMatchSnapshot();
+  });
 });
 
