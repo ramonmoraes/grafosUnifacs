@@ -67,6 +67,26 @@ export function multiplyMatrix(m1: matrix, m2: matrix, boolean: boolean = false)
   return boolean ? convertToBooleanMatrix(m) : m;
 }
 
+export function sumMatrix(m1: matrix, m2: matrix, boolean: boolean = false):matrix {
+  const m1Rows = m1.length;
+  const m2Rows = m2.length;
+  const m1Columns = m1[0].length;
+  const m2Columns = m2[0].length;
+
+  if( m1Columns != m2Columns || m1Rows != m2Rows) {
+    console.error("Matrix can not be summed")
+    return [[0]]
+  }
+
+  const m = getEmptyMatrix(m1Rows);
+  for (let i = 0; i < m1Rows; i++) {
+    for (let j = 0; j < m1Columns; j++) {
+      m[i][j] = m1[i][j] + m2[i][j]; 
+    }    
+  }
+
+  return boolean ? convertToBooleanMatrix(m) : m;
+}
 export function convertToBooleanMatrix(m: matrix): matrix{
   return m.map(column => column.map(val => val > 0 ? 1 : 0));
 }
