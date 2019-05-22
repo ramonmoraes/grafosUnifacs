@@ -42,17 +42,24 @@ export default function adjacentGraphMatrix (graph: Graph, filteredValue:string 
   return matrix
 }
 
-export function multiplyMatrix(m1: matrix, m2: matrix) {
+export function multiplyMatrix(m1: matrix, m2: matrix):matrix {
   const m1Rows = m1.length;
-  const m2Columns = m1[0].length;
-  const bNumCols = m2[0].length;
+  const m2Rows = m2.length;
+  const m1Columns = m1[0].length;
+  const m2Columns = m2[0].length;
+
+  if (m1Columns !== m2Rows) {
+    console.error("Matrix can not be multiplied")
+    return [[0]]
+  }
+  
   const m = getEmptyMatrix(m1Rows);
   
   for (let r = 0; r < m1Rows; ++r) {
-    m[r] = new Array(bNumCols); // initialize the current row
-    for (let c = 0; c < bNumCols; ++c) {
+    m[r] = new Array(m2Columns); // initialize the current row
+    for (let c = 0; c < m2Columns; ++c) {
       m[r][c] = 0;             // initialize the current cell
-      for (let i = 0; i < m2Columns; ++i) {
+      for (let i = 0; i < m1Columns; ++i) {
         m[r][c] += m1[r][i] * m2[i][c];
       }
     }
