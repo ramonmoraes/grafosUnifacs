@@ -22,7 +22,7 @@ export function getGraphPositionMap(graph: Graph) {
   return positionMap;
 }
 
-export default function matrix (graph: Graph, filteredValue:string = "fr"): number[][] {
+export default function matrix (graph: Graph, filteredValue:string = "fr", twoWays:boolean = true): number[][] {
   const table = graph.getSimplifiedTable(filteredValue)
   const connections = table.map(link => link.connections)
   const positionMap = getGraphPositionMap(graph);
@@ -34,7 +34,7 @@ export default function matrix (graph: Graph, filteredValue:string = "fr"): numb
     const identifier2 = connection[1];
     const pos2 = positionMap[identifier2];
     matrix[pos1][pos2] = 1
-    matrix[pos2][pos1] = 1
+    if (twoWays) matrix[pos2][pos1] = 1
   });
   
   return matrix
