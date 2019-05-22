@@ -4,7 +4,7 @@ exports[`Marix get adjacentGraphMatrix 1`] = `
 Array [
   Array [
     0,
-    0,
+    1,
   ],
   Array [
     0,

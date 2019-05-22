@@ -20,6 +20,7 @@ describe("Marix", () => {
     });
 
     graph = new Graph([ismeloNode, dartNode]);
+    graph.createLinks();
   });
 
   test("get adjacentGraphMatrix", () => {
