@@ -42,7 +42,7 @@ export default function adjacentGraphMatrix (graph: Graph, filteredValue:string 
   return matrix
 }
 
-export function multiplyMatrix(m1: matrix, m2: matrix):matrix {
+export function multiplyMatrix(m1: matrix, m2: matrix, boolean: boolean = false):matrix {
   const m1Rows = m1.length;
   const m2Rows = m2.length;
   const m1Columns = m1[0].length;
@@ -64,5 +64,9 @@ export function multiplyMatrix(m1: matrix, m2: matrix):matrix {
       }
     }
   }
-  return m;
+  return boolean ? convertToBooleanMatrix(m) : m;
+}
+
+export function convertToBooleanMatrix(m: matrix): matrix{
+  return m.map(column => column.map(val => val > 0 ? 1 : 0));
 }

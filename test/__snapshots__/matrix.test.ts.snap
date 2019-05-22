@@ -13,6 +13,26 @@ Array [
 ]
 `;
 
+exports[`Marix multiply boolean matrixes 1`] = `
+Array [
+  Array [
+    1,
+    1,
+    1,
+  ],
+  Array [
+    1,
+    1,
+    1,
+  ],
+  Array [
+    0,
+    0,
+    1,
+  ],
+]
+`;
+
 exports[`Marix multiply matrixes 1`] = `
 Array [
   Array [

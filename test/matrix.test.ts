@@ -37,9 +37,22 @@ describe("Marix", () => {
       [0, 0],
       [0, 1]
     ]
-
     const sample = multiplyMatrix(m1, m2);
     expect(sample).toMatchSnapshot();
   });
+  test("multiply boolean matrixes", () => {
+    const m1 = [
+      [1, 1, 0],
+      [0, 1, 0],
+      [0, 0, 1]
+    ];
+    const m2 = [
+      [1, 0, 0],
+      [1, 1, 1],
+      [0, 0, 1]
+    ]
+    const sample = multiplyMatrix(m1, m2, true);
+    expect(sample).toMatchSnapshot();
+  })
 });
 
