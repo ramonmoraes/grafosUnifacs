@@ -1,6 +1,8 @@
 import Graph, { GraphLinks } from './graph';
 
-export function getEmptyMatrix(size: number = 1, defaultValue:any = 0 ) {
+export type matrix = number[][]
+
+export function getEmptyMatrix(size: number = 1, defaultValue:any = 0 ):matrix {
   let emptyMatrix:any = [];
   for (let i = 0; i < size; i++) {
     emptyMatrix[i] = [];    
@@ -22,7 +24,7 @@ export function getGraphPositionMap(graph: Graph) {
   return positionMap;
 }
 
-export default function matrix (graph: Graph, filteredValue:string = "fr", twoWays:boolean = true): number[][] {
+export default function adjacentGraphMatrix (graph: Graph, filteredValue:string = "fr", twoWays:boolean = false): matrix {
   const table = graph.getSimplifiedTable(filteredValue)
   const connections = table.map(link => link.connections)
   const positionMap = getGraphPositionMap(graph);
@@ -38,4 +40,22 @@ export default function matrix (graph: Graph, filteredValue:string = "fr", twoWa
   });
   
   return matrix
+}
+
+export function multiplyMatrix(m1: matrix, m2: matrix) {
+  const m1Rows = m1.length;
+  const m2Columns = m1[0].length;
+  const bNumCols = m2[0].length;
+  const m = getEmptyMatrix(m1Rows);
+  
+  for (let r = 0; r < m1Rows; ++r) {
+    m[r] = new Array(bNumCols); // initialize the current row
+    for (let c = 0; c < bNumCols; ++c) {
+      m[r][c] = 0;             // initialize the current cell
+      for (let i = 0; i < m2Columns; ++i) {
+        m[r][c] += m1[r][i] * m2[i][c];
+      }
+    }
+  }
+  return m;
 }
