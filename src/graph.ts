@@ -181,25 +181,4 @@ export default class Grafo {
     const links = this.links.map(l => l.connections.map(c => c.identifier));
     return eul({ edges: links, directed: true });
   };
-
-  logTable = ({ filterValue = "", filterIdentifier = "" } = {}) => {
-    let filteredLinks = this.links;
-    if (filterValue) {
-      filteredLinks = filteredLinks.filter(link => link.value == filterValue);
-    }
-
-    if (filterIdentifier) {
-      filteredLinks = filteredLinks.filter(
-        link => link.identifier == filterIdentifier
-      );
-    }
-
-    console.table(
-      filteredLinks.map((x: any) => ({
-        identifier: x.identifier,
-        value: x.value,
-        connections: x.connections.map((n: GraphNode) => n.identifier)
-      }))
-    );
-  };
 }
