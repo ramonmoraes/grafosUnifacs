@@ -38,7 +38,6 @@ contemple funcionalidades específicas de um grafo.
 | Implementar o Algoritmo de Dijkstra | |
 | Pesquisar e implementar o Algoritmo de Bellman-Ford | |
 | Pesquisar e implementar o Algoritmo de Floyd | |
-| Preparar uma apresentação comparando os resultados do | |
-| algoritmo de Dijkstra; Bellman-Ford e Floyd. | |
+| Preparar uma apresentação comparando os resultados do <br /> algoritmo de Dijkstra; Bellman-Ford e Floyd. | |
 | Identificar quantos componentes conectados existem no grafo | |
 | Identificar quantos vértices existem no maior componente | |
