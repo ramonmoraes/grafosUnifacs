@@ -1,6 +1,6 @@
 import Graph, { GraphLinks } from "../src/graph";
 import GraphNode from "../src/graphNode";
-import adjacentGraphMatrix, { multiplyMatrix, sumMatrix } from '../src/matrix';
+import adjacentGraphMatrix, { multiplyMatrix, sumMatrix, warshall } from '../src/matrix';
 
 
 describe("Marix", () => {
@@ -71,5 +71,16 @@ describe("Marix", () => {
     const sample = sumMatrix(m1, m2);
     expect(sample).toMatchSnapshot();
   });
+
+  test("warshall", () => {
+    const m = [
+      [ 0, 0, 0, 1],
+      [ 0, 0, 1, 1],
+      [ 0, 0, 0, 0],
+      [ 1, 0, 0, 0],
+    ]
+    const sample = warshall(m, 4);
+    expect(sample).toMatchSnapshot();
+  })
 });
 

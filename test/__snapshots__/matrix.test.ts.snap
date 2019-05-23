@@ -65,3 +65,32 @@ Array [
   ],
 ]
 `;
+
+exports[`Marix warshall 1`] = `
+Array [
+  Array [
+    1,
+    0,
+    0,
+    1,
+  ],
+  Array [
+    1,
+    0,
+    1,
+    1,
+  ],
+  Array [
+    0,
+    0,
+    0,
+    0,
+  ],
+  Array [
+    1,
+    0,
+    0,
+    1,
+  ],
+]
+`;
