@@ -24,7 +24,7 @@ describe("Marix", () => {
   });
 
   test("get adjacentGraphMatrix", () => {
-    const sample = adjacentGraphMatrix(graph, "en")
+    const sample = adjacentGraphMatrix(graph, {filteredValue: "en"})
     expect(sample).toMatchSnapshot();
   });
 

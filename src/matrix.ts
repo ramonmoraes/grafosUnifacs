@@ -28,9 +28,7 @@ export function getGraphPositionMap(graph: Graph) {
 }
 
 export default function adjacentGraphMatrix(
-  graph: Graph,
-  filteredValue: string = "fr",
-  twoWays: boolean = false
+  graph: Graph, { filteredValue = "fr", twoWays = false } = {}
 ): matrix {
   const table = graph.getSimplifiedTable(filteredValue);
   const connections = table.map(link => link.connections);
