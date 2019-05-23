@@ -1,6 +1,46 @@
 import Graph, { GraphLinks } from "./graph";
 
 export type matrix = number[][];
+export type graphPositionMap = {
+  [key: string]: number;
+};
+
+export default class GraphMatrix {
+  public graph:Graph;
+  public graphPositionMap:graphPositionMap;
+
+  constructor(graph: Graph, options = {}) {
+    this.graph = graph;
+    this.graphPositionMap = this.getGraphPositionMap();
+  }
+
+  getGraphPositionMap = ():graphPositionMap => {
+    const indexes = this.graph.nodes.map(n => n.identifier);
+    const positionMap:graphPositionMap = {};
+    for (let i in indexes) {
+      positionMap[indexes[i]] = parseInt(i);
+    }
+    return positionMap;
+  }
+  
+  adjacentGraphMatrix = ({ filteredValue = "fr", twoWays = false } = {}): matrix => {
+    const { graphPositionMap, graph } = this;
+    const table = graph.getSimplifiedTable(filteredValue);
+    const connections = table.map(link => link.connections);
+    const matrix = getEmptyMatrix(graph.nodes.length);
+  
+    connections.forEach(connection => {
+      const identifier1 = connection[0];
+      const pos1 = graphPositionMap[identifier1];
+      const identifier2 = connection[1];
+      const pos2 = graphPositionMap[identifier2];
+      matrix[pos1][pos2] = 1;
+      if (twoWays) matrix[pos2][pos1] = 1;
+    });
+  
+    return matrix;
+  }
+}
 
 export function getEmptyMatrix(
   size: number = 1,
@@ -14,37 +54,6 @@ export function getEmptyMatrix(
     }
   }
   return emptyMatrix;
-}
-
-export function getGraphPositionMap(graph: Graph) {
-  const indexes = graph.nodes.map(n => n.identifier);
-  const positionMap: {
-    [key: string]: number;
-  } = {};
-  for (let i in indexes) {
-    positionMap[indexes[i]] = parseInt(i);
-  }
-  return positionMap;
-}
-
-export default function adjacentGraphMatrix(
-  graph: Graph, { filteredValue = "fr", twoWays = false } = {}
-): matrix {
-  const table = graph.getSimplifiedTable(filteredValue);
-  const connections = table.map(link => link.connections);
-  const positionMap = getGraphPositionMap(graph);
-  const matrix = getEmptyMatrix(graph.nodes.length);
-
-  connections.forEach(connection => {
-    const identifier1 = connection[0];
-    const pos1 = positionMap[identifier1];
-    const identifier2 = connection[1];
-    const pos2 = positionMap[identifier2];
-    matrix[pos1][pos2] = 1;
-    if (twoWays) matrix[pos2][pos1] = 1;
-  });
-
-  return matrix;
 }
 
 export function multiplyMatrix(
@@ -122,4 +131,13 @@ function boolSum(n1: number, n2: number): number {
 
 function boolMult(n1: number, n2: number): number {
   return n1 < n2 ? n1 : n2;
+}
+
+
+export function dijkstra(m:matrix) {
+  logMatrix(m);
+}
+
+function logMatrix(m :matrix) {
+  m.forEach(x => console.log(x));
 }

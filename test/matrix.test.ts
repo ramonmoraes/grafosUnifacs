@@ -1,6 +1,6 @@
 import Graph, { GraphLinks } from "../src/graph";
 import GraphNode from "../src/graphNode";
-import adjacentGraphMatrix, { multiplyMatrix, sumMatrix, warshall } from '../src/matrix';
+import GraphMatrix, { multiplyMatrix, sumMatrix, warshall } from '../src/matrix';
 
 
 describe("Marix", () => {
@@ -24,7 +24,7 @@ describe("Marix", () => {
   });
 
   test("get adjacentGraphMatrix", () => {
-    const sample = adjacentGraphMatrix(graph, {filteredValue: "en"})
+    const sample = new GraphMatrix(graph).adjacentGraphMatrix({filteredValue: "en"})
     expect(sample).toMatchSnapshot();
   });
 
