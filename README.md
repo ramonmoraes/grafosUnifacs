@@ -34,7 +34,7 @@ contemple funcionalidades específicas de um grafo.
 # V2
 | Task | DoneWith |
 |------|----------|
-| Implementar o Algoritmo de Warshall | |
+| Implementar o Algoritmo de Warshall | warshall |
 | Implementar o Algoritmo de Dijkstra | |
 | Pesquisar e implementar o Algoritmo de Bellman-Ford | |
 | Pesquisar e implementar o Algoritmo de Floyd | |
