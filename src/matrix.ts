@@ -107,4 +107,21 @@ export function convertToBooleanMatrix(m: matrix): matrix {
   return m.map(column => column.map(val => (val > 0 ? 1 : 0)));
 }
 
+export function warshall(m: matrix, nodesAmount: number): matrix {
+  for (let k = 0; k < nodesAmount; k++) {
+    for (let i = 0; i < nodesAmount; i++) {
+      for (let j = 0; j < nodesAmount; j++) {
+        m[i][j] = boolSum(m[i][j], boolMult(m[i][k], m[k][j]));
+      }
+    }
+  }
+  return m;
+}
 
+function boolSum(n1: number, n2: number): number {
+  return n1 > n2 ? n1 : n2;
+}
+
+function boolMult(n1: number, n2: number): number {
+  return n1 < n2 ? n1 : n2;
+}
