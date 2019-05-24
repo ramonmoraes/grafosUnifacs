@@ -5,25 +5,32 @@ export type graphPositionMap = {
   [key: string]: number;
 };
 
+export type reverseGraphPositionMap = {
+  [key: number]: string;
+};
+
 export default class GraphMatrix {
   public graph:Graph;
-  public graphPositionMap:graphPositionMap;
+  public graphPositionMap:graphPositionMap = {};
+  public reverseGraphPositionMap:reverseGraphPositionMap = {};
   public matrix:matrix;
 
   constructor(graph: Graph, options = {}) {
     this.graph = graph;
     graph.createLinks();
-    this.graphPositionMap = this.getGraphPositionMap();
+    this.setGraphMaps();
+
     this.matrix = this.adjacentGraphMatrix();
   }
 
-  getGraphPositionMap = ():graphPositionMap => {
+  setGraphMaps = () => {
     const indexes = this.graph.nodes.map(n => n.identifier);
-    const positionMap:graphPositionMap = {};
+    const { graphPositionMap, reverseGraphPositionMap } = this;
+
     for (let i in indexes) {
-      positionMap[indexes[i]] = parseInt(i);
+      graphPositionMap[indexes[i]] = parseInt(i);
+      reverseGraphPositionMap[parseInt(i)] = indexes[i]
     }
-    return positionMap;
   }
   
   adjacentGraphMatrix = ({ filteredValue = "fr", twoWays = false } = {}): matrix => {
