@@ -2,7 +2,7 @@
   "nodes": [
     {
       "identifier": "dart",
-      "attributes": { "lang": ["en", "fr", "pt", "es"], "age": 21 }
+      "attributes": { "lang": ["en", "fr", "es"], "age": 21 }
     },
     {
       "identifier": "ismelo",
@@ -10,11 +10,11 @@
     },
     {
       "identifier": "fgod",
-      "attributes": { "lang": ["pt", "fr", "al"] }
+      "attributes": { "lang": ["pt", "al"] }
     },
     {
       "identifier": "murtinha",
-      "attributes": { "lang": ["es", "fr", "al"] }
+      "attributes": { "lang": ["es", "al"] }
     }
   ]
 }
