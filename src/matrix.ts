@@ -91,11 +91,10 @@ function boolMult(n1: number, n2: number): number {
   return n1 < n2 ? n1 : n2;
 }
 
+export function logMatrix(m :matrix) {
+  m.forEach(x => console.log(x));
+}
 
 export function dijkstra(m:matrix) {
   logMatrix(m);
-}
-
-export function logMatrix(m :matrix) {
-  m.forEach(x => console.log(x));
 }
