@@ -8,10 +8,13 @@ export type graphPositionMap = {
 export default class GraphMatrix {
   public graph:Graph;
   public graphPositionMap:graphPositionMap;
+  public matrix:matrix;
 
   constructor(graph: Graph, options = {}) {
     this.graph = graph;
+    graph.createLinks();
     this.graphPositionMap = this.getGraphPositionMap();
+    this.matrix = this.adjacentGraphMatrix();
   }
 
   getGraphPositionMap = ():graphPositionMap => {
@@ -138,6 +141,6 @@ export function dijkstra(m:matrix) {
   logMatrix(m);
 }
 
-function logMatrix(m :matrix) {
+export function logMatrix(m :matrix) {
   m.forEach(x => console.log(x));
 }
