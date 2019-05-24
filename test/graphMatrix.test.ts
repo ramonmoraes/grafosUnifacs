@@ -27,5 +27,10 @@ describe("Marix", () => {
     const sample = new GraphMatrix(graph).adjacentGraphMatrix({filteredValue: "en"})
     expect(sample).toMatchSnapshot();
   });
+
+  test("adjacentGraphMatrix conversion to Dijkstra", () => {
+    const sample = new GraphMatrix(graph).adjacentGraphMatrix({filteredValue: "en"})
+    expect(sample).toMatchSnapshot();
+  });
 });
 
