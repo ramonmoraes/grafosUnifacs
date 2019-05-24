@@ -1,6 +1,7 @@
 import Graph, { GraphLinks } from "../src/graph";
 import GraphNode from "../src/graphNode";
-import GraphMatrix, { multiplyMatrix, sumMatrix, warshall } from '../src/matrix';
+import { multiplyMatrix, sumMatrix, warshall } from '../src/matrix';
+import GraphMatrix from '../src/graphMatrix';
 
 
 describe("Marix", () => {
