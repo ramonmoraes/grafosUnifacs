@@ -107,7 +107,7 @@ export default class Grafo {
   getAdjacentNodesByIdentifier = (identifier: string): GraphNode[] => {
     return uniqueArray(
       flat(this.getLinksByIdentifier(identifier).map(l => l.connections))
-    );
+    ).filter(node => node.identifier != identifier);
   };
 
   calcGraphOrder = () => {
