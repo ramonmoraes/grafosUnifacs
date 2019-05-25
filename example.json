@@ -1,8 +1,12 @@
 {
   "nodes": [
     {
+      "identifier": "peu",
+      "attributes": { "lang": ["pt"], "age": 30 }
+    },
+    {
       "identifier": "dart",
-      "attributes": { "lang": ["en", "es"], "age": 21 }
+      "attributes": { "lang": ["en", "pt"], "age": 21 }
     },
     {
       "identifier": "ismelo",
@@ -10,7 +14,7 @@
     },
     {
       "identifier": "fgod",
-      "attributes": { "lang": ["pt", "al"] }
+      "attributes": { "lang": ["al"] }
     },
     {
       "identifier": "murtinha",
