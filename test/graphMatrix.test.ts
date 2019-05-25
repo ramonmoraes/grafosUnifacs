@@ -28,9 +28,9 @@ describe("Marix", () => {
     expect(sample).toMatchSnapshot();
   });
 
-  test("adjacentGraphMatrix conversion to Dijkstra", () => {
-    const sample = new GraphMatrix(graph).adjacentGraphMatrix({filteredValue: "en"})
-    expect(sample).toMatchSnapshot();
+  test("dist betweewn nodes", () => {
+    const sample = new GraphMatrix(graph).getDistBetweenNodes(ismeloNode, dartNode)
+    expect(sample).toBe(1);
   });
 });
 
