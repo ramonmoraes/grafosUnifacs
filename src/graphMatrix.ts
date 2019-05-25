@@ -68,7 +68,7 @@ export default class GraphMatrix {
     return matrix;
   };
 
-  dijkstra = (startNodeIndex: number = 3) => {
+  bellman = (startNodeIndex: number = 3) => {
     const { graph, graphPositionMap } = this;
     const matrix = this.getAdjacentDijkstraMatrix();
 
