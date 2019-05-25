@@ -8,6 +8,8 @@ import {
   getEmptyMatrix,
   matrix
 } from "./matrix";
+import { arrayContain } from "./utils";
+import GraphNode from "./graphNode";
 
 export type graphPositionMap = {
   [key: string]: number;
@@ -60,6 +62,47 @@ export default class GraphMatrix {
     });
 
     return matrix;
+  };
+
+  dijkstra = (startNodeIndex: number = 2) => {
+    const { graph, graphPositionMap } = this;
+    const matrix = this.getAdjacentDijkstraMatrix();
+
+    const distances: graphPositionMap = {};
+    const startNode = graph.nodes[startNodeIndex];
+    graph.nodes.forEach(node => {
+      distances[node.identifier] =
+        node === startNode ? 0 : Number.POSITIVE_INFINITY;
+    });
+
+    const exploredNodes: GraphNode[] = [];
+    let toBeExploredNodes: GraphNode[] = [startNode];
+
+    while (toBeExploredNodes.length != 0) {
+      toBeExploredNodes.forEach(exploringNode => {
+        const linkedNodes = graph.getAdjacentNodesByIdentifier(
+          exploringNode.identifier
+        );
+
+        toBeExploredNodes = toBeExploredNodes.filter(n => n !== exploringNode);
+        exploredNodes.push(exploringNode);
+
+        linkedNodes.forEach(node => {
+          const exploringNodePosition = graphPositionMap[exploringNode.identifier];
+          const position = graphPositionMap[node.identifier];
+          const distBetweewnNodes = matrix[position][exploringNodePosition];
+          const distBetweenStartNodeAndExploringNode = distances[exploringNode.identifier];
+          const summedDist = distBetweenStartNodeAndExploringNode + distBetweewnNodes;
+          if (summedDist < distances[node.identifier]) {
+            distances[node.identifier] = summedDist;
+          }
+          if (!arrayContain(exploredNodes, node)) {
+            toBeExploredNodes.push(node);
+          }
+        });
+      });
+    }
+    console.log(distances);
   };
 
   getAdjacentDijkstraMatrix = () => {
