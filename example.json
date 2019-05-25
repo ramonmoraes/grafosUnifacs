@@ -2,7 +2,7 @@
   "nodes": [
     {
       "identifier": "dart",
-      "attributes": { "lang": ["en", "fr", "es"], "age": 21 }
+      "attributes": { "lang": ["en", "es"], "age": 21 }
     },
     {
       "identifier": "ismelo",
