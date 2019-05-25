@@ -38,6 +38,7 @@ export default class GraphMatrix {
     this.setGraphMaps();
 
     this.matrix = this.adjacentGraphMatrix();
+    this.matrix = this.getAdjacentDijkstraMatrix();
   }
 
   setGraphMaps = () => {
@@ -69,8 +70,7 @@ export default class GraphMatrix {
   };
 
   bellman = (startNodeIndex: number = 3) => {
-    const { graph, graphPositionMap } = this;
-    const matrix = this.getAdjacentDijkstraMatrix();
+    const { graph } = this;
 
     const distances: graphPathDistance = {};
     const startNode = graph.nodes[startNodeIndex];
@@ -84,28 +84,24 @@ export default class GraphMatrix {
 
     const exploredNodes: GraphNode[] = [];
     let toBeExploredNodes: GraphNode[] = [startNode];
-    
+
     while (toBeExploredNodes.length != 0) {
       toBeExploredNodes.forEach(exploringNode => {
         const exploringIdentifier = exploringNode.identifier;
-        const exploringNodePosition = graphPositionMap[exploringIdentifier];
         const linkedNodes = graph.getAdjacentNodesByIdentifier(exploringIdentifier);
-        
+
         toBeExploredNodes = toBeExploredNodes.filter(n => n !== exploringNode);
         exploredNodes.push(exploringNode);
-        
+
         linkedNodes.forEach(node => {
-          const nodeIndex = graphPositionMap[node.identifier];
-          const nodesDist = matrix[nodeIndex][exploringNodePosition];
+          const nodesDist = this.getDistBetweenNodes(node, exploringNode);
           const startNodeExploringNodeDist = distances[exploringIdentifier].distance;
           const summedDist = startNodeExploringNodeDist + nodesDist;
 
           const nodeDijkstrakaDist = distances[node.identifier];
           if (summedDist < nodeDijkstrakaDist.distance) {
             nodeDijkstrakaDist.distance = summedDist;
-            nodeDijkstrakaDist.path = [
-              ... distances[exploringIdentifier].path, node.identifier
-            ];
+            nodeDijkstrakaDist.path = [...distances[exploringIdentifier].path, node.identifier];
           }
 
           if (!arrayContain(exploredNodes, node)) {
@@ -116,6 +112,13 @@ export default class GraphMatrix {
     }
     console.log(distances);
   };
+
+  getDistBetweenNodes = (n1:GraphNode, n2:GraphNode):number => {
+    const {graphPositionMap, matrix} = this;
+    const pos1 = graphPositionMap[n1.identifier];
+    const pos2 = graphPositionMap[n2.identifier];
+    return matrix[pos1][pos2];
+  }
 
   getAdjacentDijkstraMatrix = () => {
     const { matrix } = this;
@@ -135,4 +138,5 @@ export default class GraphMatrix {
     }
     return dijkstraMatrix;
   };
+
 }
