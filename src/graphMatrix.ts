@@ -19,6 +19,13 @@ export type reverseGraphPositionMap = {
   [key: number]: string;
 };
 
+export type graphPathDistance = {
+  [key: string]: {
+    distance: number;
+    path: string[];
+  };
+};
+
 export default class GraphMatrix {
   public graph: Graph;
   public graphPositionMap: graphPositionMap = {};
@@ -43,10 +50,7 @@ export default class GraphMatrix {
     }
   };
 
-  adjacentGraphMatrix = ({
-    filteredValue = "",
-    twoWays = true
-  } = {}): matrix => {
+  adjacentGraphMatrix = ({ filteredValue = "", twoWays = true } = {}): matrix => {
     const { graphPositionMap, graph } = this;
     const table = graph.getSimplifiedTable(filteredValue);
     const connections = table.map(link => link.connections);
@@ -64,38 +68,46 @@ export default class GraphMatrix {
     return matrix;
   };
 
-  dijkstra = (startNodeIndex: number = 2) => {
+  dijkstra = (startNodeIndex: number = 3) => {
     const { graph, graphPositionMap } = this;
     const matrix = this.getAdjacentDijkstraMatrix();
 
-    const distances: graphPositionMap = {};
+    const distances: graphPathDistance = {};
     const startNode = graph.nodes[startNodeIndex];
+
     graph.nodes.forEach(node => {
-      distances[node.identifier] =
-        node === startNode ? 0 : Number.POSITIVE_INFINITY;
+      distances[node.identifier] = {
+        distance: node === startNode ? 0 : Number.POSITIVE_INFINITY,
+        path: []
+      };
     });
 
     const exploredNodes: GraphNode[] = [];
     let toBeExploredNodes: GraphNode[] = [startNode];
-
+    
     while (toBeExploredNodes.length != 0) {
       toBeExploredNodes.forEach(exploringNode => {
-        const linkedNodes = graph.getAdjacentNodesByIdentifier(
-          exploringNode.identifier
-        );
-
+        const exploringIdentifier = exploringNode.identifier;
+        const exploringNodePosition = graphPositionMap[exploringIdentifier];
+        const linkedNodes = graph.getAdjacentNodesByIdentifier(exploringIdentifier);
+        
         toBeExploredNodes = toBeExploredNodes.filter(n => n !== exploringNode);
         exploredNodes.push(exploringNode);
-
+        
         linkedNodes.forEach(node => {
-          const exploringNodePosition = graphPositionMap[exploringNode.identifier];
-          const position = graphPositionMap[node.identifier];
-          const distBetweewnNodes = matrix[position][exploringNodePosition];
-          const distBetweenStartNodeAndExploringNode = distances[exploringNode.identifier];
-          const summedDist = distBetweenStartNodeAndExploringNode + distBetweewnNodes;
-          if (summedDist < distances[node.identifier]) {
-            distances[node.identifier] = summedDist;
+          const nodeIndex = graphPositionMap[node.identifier];
+          const nodesDist = matrix[nodeIndex][exploringNodePosition];
+          const startNodeExploringNodeDist = distances[exploringIdentifier].distance;
+          const summedDist = startNodeExploringNodeDist + nodesDist;
+
+          const nodeDijkstrakaDist = distances[node.identifier];
+          if (summedDist < nodeDijkstrakaDist.distance) {
+            nodeDijkstrakaDist.distance = summedDist;
+            nodeDijkstrakaDist.path = [
+              ... distances[exploringIdentifier].path, node.identifier
+            ];
           }
+
           if (!arrayContain(exploredNodes, node)) {
             toBeExploredNodes.push(node);
           }
