@@ -35,7 +35,7 @@ contemple funcionalidades específicas de um grafo.
 | Task | DoneWith |
 |------|----------|
 | Implementar o Algoritmo de Warshall | warshall |
-| Implementar o Algoritmo de Dijkstra | |
+| Implementar o Algoritmo de Dijkstra | GraphMarix().dijkstra()|
 | Pesquisar e implementar o Algoritmo de Bellman-Ford | |
 | Pesquisar e implementar o Algoritmo de Floyd | |
 | Preparar uma apresentação comparando os resultados do <br /> algoritmo de Dijkstra; Bellman-Ford e Floyd. | |
