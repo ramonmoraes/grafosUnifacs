@@ -1,18 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Marix adjacentGraphMatrix conversion to Dijkstra 1`] = `
-Array [
-  Array [
-    0,
-    1,
-  ],
-  Array [
-    1,
-    0,
-  ],
-]
-`;
-
 exports[`Marix get adjacentGraphMatrix 1`] = `
 Array [
   Array [
