@@ -16,10 +16,10 @@ export default class PriorityQueue {
   }
 
   sortQueue = () => {
-    this.queue.sort((obj1, obj2) => obj1.priority - obj2.priority);
+    this.queue.sort((obj1, obj2) => obj2.priority - obj1.priority);
   }
 
   dequeue = () => {
-    this.queue.pop();
+    return this.queue.pop();
   }
 }

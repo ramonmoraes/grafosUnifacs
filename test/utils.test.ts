@@ -29,6 +29,7 @@ describe("Utils", () => {
     queue.enqueue(obj1);
     queue.enqueue(obj2);
 
-    expect([obj1, obj2, obj3]).toEqual(queue.queue);
+    expect([obj3, obj2, obj1]).toEqual(queue.queue);
+    expect(queue.dequeue()).toEqual(obj1);
   });
 });
