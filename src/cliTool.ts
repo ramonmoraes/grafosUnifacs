@@ -1,6 +1,7 @@
 import readline from "readline";
 import GraphMatrix from "./graphMatrix";
 import Graph from "./graph";
+import { warshall } from "./matrix";
 
 export type CliQuestion = {
   msg: string;
@@ -9,7 +10,6 @@ export type CliQuestion = {
 
 export default class CliTool {
   rl: any;
-  graphMatrix: GraphMatrix;
   graph: Graph;
   questions: CliQuestion[];
 
@@ -19,10 +19,9 @@ export default class CliTool {
       output: process.stdout
     });
     this.graph = graph;
-    this.graphMatrix = new GraphMatrix(graph);
   }
 
-  getQuestions = (g: Graph): CliQuestion[] => {
+  getv1Questions = (g: Graph): CliQuestion[] => {
     return [
       {
         msg: "Adicionar node",
@@ -71,8 +70,58 @@ export default class CliTool {
     ];
   };
 
-   start = async () => {
-    const questions = this.getQuestions(this.graph);
+  getV2Questions = (g: Graph): CliQuestion[] => {
+    return [
+      {
+        msg: "Matrix adjacências",
+        func: async (): Promise<string> => {
+          const matrix = new GraphMatrix(g).adjacentGraphMatrix({ twoWays: false });
+          console.log(matrix);
+          return "Done";
+        }
+      },
+      {
+        msg: "Matrix adjacências de Floyd-Warshall",
+        func: async (): Promise<string> => {
+          const matrix = new GraphMatrix(g).adjacentGraphMatrix({ twoWays: false });
+          console.log(warshall(matrix, g.nodes.length));
+          return "Done";
+        }
+      },
+      {
+        msg: "Algoritmo de Bellman-Ford",
+        func: async (): Promise<string> => {
+          const matrix = new GraphMatrix(g);
+          matrix.bellman();
+          return "Done";
+        }
+      },
+      {
+        msg: "Algoritmo de dijkstra",
+        func: async (): Promise<string> => {
+          const matrix = new GraphMatrix(g);
+          matrix.dijkstra();
+          return "Done";
+        }
+      },
+      {
+        msg: "Identificar quantos componentes conectados existem no grafo",
+        func: async (): Promise<string> => {
+          return `Existem ${g.getConnectedNodesAmount()} `;
+        }
+      },
+      {
+        msg: "Identificar quantos vértices existem no maior componente",
+        func: async (): Promise<string> => {
+          const nodeWithMoreConnections = g.getNodeWithMoreConnections()
+          return `O maior node é ${nodeWithMoreConnections.node} com ${nodeWithMoreConnections.links} vertices`
+        }
+      }
+    ];
+  };
+
+  start = async () => {
+    const questions = [...this.getv1Questions(this.graph), ...this.getV2Questions(this.graph)];
     let running = true;
     let resp: string;
     while (running) {
@@ -86,7 +135,8 @@ export default class CliTool {
       }
       try {
         console.log(await questions[parseInt(resp)].func());
-      } catch {
+      } catch(err) {
+        console.error(err);
         console.log("Valor não encontrado");
       }
     }
