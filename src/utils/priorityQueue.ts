@@ -1,13 +1,15 @@
 export type queueObject = {
-  object: object,
+  object: any,
   priority: number,
 }
 
 export default class PriorityQueue {
   public queue:queueObject[];
+  public dequeued:queueObject[];
 
   constructor() {
-    this.queue = []; 
+    this.queue = [];
+    this.dequeued = []; 
   }
 
   enqueue = (queueObject:queueObject) => {
@@ -20,6 +22,8 @@ export default class PriorityQueue {
   }
 
   dequeue = () => {
-    return this.queue.pop();
+    const obj = this.queue.pop();
+    this.dequeued.push(obj);
+    return obj;
   }
 }
