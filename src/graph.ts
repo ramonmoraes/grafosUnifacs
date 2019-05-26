@@ -179,4 +179,36 @@ export default class Grafo {
     const links = this.links.map(l => l.connections.map(c => c.identifier));
     return eul({ edges: links, directed: true });
   };
+
+  getConnectedNodesAmount = () => {
+    const connectedNodes = this.links.map(l => l.connections);
+    const flattenNodes = flat(connectedNodes);
+    return new Set(flattenNodes).size;
+  }
+
+  getNodeWithMoreConnections = ():any => {
+    const connectedNodes = this.links.map(l => l.connections);
+    const flattenNodes = flat(connectedNodes);
+    const countMap:any = {}
+    flattenNodes.forEach(node => {
+      if (countMap[node.identifier]) {
+        countMap[node.identifier] += 1
+      } else {
+        countMap[node.identifier] = 1
+      }
+    });
+
+    const bigger:any = {
+      node: null,
+      links: 0
+    };
+
+    for(let item in countMap) {
+      if (countMap[item] > bigger.links) {
+        bigger.node = item;
+        bigger.links = countMap[item];
+      }
+    }
+    return bigger;
+  }
 }
