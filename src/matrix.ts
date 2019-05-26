@@ -1,9 +1,6 @@
 export type matrix = number[][];
 
-export function getEmptyMatrix(
-  size: number = 1,
-  defaultValue: any = 0
-): matrix {
+export function getEmptyMatrix(size: number = 1, defaultValue: any = 0): matrix {
   let emptyMatrix: any = [];
   for (let i = 0; i < size; i++) {
     emptyMatrix[i] = [];
@@ -14,11 +11,7 @@ export function getEmptyMatrix(
   return emptyMatrix;
 }
 
-export function multiplyMatrix(
-  m1: matrix,
-  m2: matrix,
-  boolean: boolean = false
-): matrix {
+export function multiplyMatrix(m1: matrix, m2: matrix, boolean: boolean = false): matrix {
   const m1Rows = m1.length;
   const m2Rows = m2.length;
   const m1Columns = m1[0].length;
@@ -43,11 +36,7 @@ export function multiplyMatrix(
   return boolean ? convertToBooleanMatrix(m) : m;
 }
 
-export function sumMatrix(
-  m1: matrix,
-  m2: matrix,
-  boolean: boolean = false
-): matrix {
+export function sumMatrix(m1: matrix, m2: matrix, boolean: boolean = false): matrix {
   const m1Rows = m1.length;
   const m2Rows = m2.length;
   const m1Columns = m1[0].length;
@@ -91,10 +80,10 @@ function boolMult(n1: number, n2: number): number {
   return n1 < n2 ? n1 : n2;
 }
 
-export function logMatrix(m :matrix) {
+export function logMatrix(m: matrix) {
   m.forEach(x => console.log(x));
 }
 
-export function dijkstra(m:matrix) {
+export function dijkstra(m: matrix) {
   logMatrix(m);
 }

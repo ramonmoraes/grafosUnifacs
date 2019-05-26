@@ -149,7 +149,7 @@ export default class GraphMatrix {
     const { graph } = this;
     const startNode = graph.nodes[startNodeIndex];
 
-    const visitedNodes:GraphNode[] = []
+    const visitedNodes: GraphNode[] = [];
     const priorityQueue = new PriorityQueue();
     priorityQueue.enqueue({
       object: {
@@ -160,7 +160,7 @@ export default class GraphMatrix {
     });
 
     while (priorityQueue.queue.length != 0) {
-      const currDequeuedObj = priorityQueue.dequeue(); 
+      const currDequeuedObj = priorityQueue.dequeue();
       const currNode = currDequeuedObj.object.node;
       const currNodeDist = currDequeuedObj.priority;
       visitedNodes.push(currNode);
@@ -168,19 +168,19 @@ export default class GraphMatrix {
       graph.getAdjacentNodesByIdentifier(currNode.identifier).forEach(neighbor => {
         if (arrayContain(visitedNodes, neighbor)) return;
         const nodeDist = this.getDistBetweenNodes(currNode, neighbor);
-        
+
         priorityQueue.enqueue({
           object: {
             node: neighbor,
             prev: currNode
           },
-          priority: nodeDist + currNodeDist,
+          priority: nodeDist + currNodeDist
         });
       });
     }
-    
-    const distances = this.getBaseDistance(startNode)
-    for(let queueObject of priorityQueue.dequeued) {
+
+    const distances = this.getBaseDistance(startNode);
+    for (let queueObject of priorityQueue.dequeued) {
       const node = queueObject.object.node.identifier;
       const prev = queueObject.object.prev.identifier;
       const weigth = queueObject.priority;
@@ -189,15 +189,15 @@ export default class GraphMatrix {
         distances[node] = {
           path: [...distances[prev].path, node],
           distance: weigth
-        }
+        };
         continue;
       }
-      
+
       if (currNodeDist < weigth) {
         distances[node] = {
-          distance:weigth,
+          distance: weigth,
           path: [...distances[prev].path, node]
-        }
+        };
       }
     }
 

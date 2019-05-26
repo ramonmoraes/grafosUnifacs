@@ -4,13 +4,7 @@ export default class GraphNode {
     [key: string]: any;
   };
 
-  constructor({
-    identifier,
-    attributes = {}
-  }: {
-    identifier: string;
-    attributes?: object;
-  }) {
+  constructor({ identifier, attributes = {} }: { identifier: string; attributes?: object }) {
     this.identifier = identifier;
     this.attributes = attributes;
 

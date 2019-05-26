@@ -21,10 +21,9 @@ export default class Grafo {
     this.nodes.forEach((node: GraphNode) => {
       this.nodes.forEach((otherNode: GraphNode) => {
         if (node === otherNode) return null;
-        this.links = [
-          ...this.links,
-          ...this.getLinkBetweenNodes(node, otherNode)
-        ].filter(valid => valid);
+        this.links = [...this.links, ...this.getLinkBetweenNodes(node, otherNode)].filter(
+          valid => valid
+        );
       });
     });
   };
@@ -58,8 +57,7 @@ export default class Grafo {
         const sameLinks = link.connections.filter(node =>
           arrayContain(givenLink.connections, node)
         );
-        const containsLink =
-          sameIdentifier && sameValue && sameLinks.length === 2;
+        const containsLink = sameIdentifier && sameValue && sameLinks.length === 2;
         if (containsLink) return true;
         return false;
       }).length > 0
@@ -95,9 +93,7 @@ export default class Grafo {
 
   getLinksByIdentifier = (identifier: string) => {
     const node = this.getNodeByIdentifier(identifier);
-    return node
-      ? this.links.filter((l: GraphLinks) => arrayContain(l.connections, node))
-      : [];
+    return node ? this.links.filter((l: GraphLinks) => arrayContain(l.connections, node)) : [];
   };
 
   getNodeOrderByIdentifier = (identifier: string): number => {
@@ -105,9 +101,9 @@ export default class Grafo {
   };
 
   getAdjacentNodesByIdentifier = (identifier: string): GraphNode[] => {
-    return uniqueArray(
-      flat(this.getLinksByIdentifier(identifier).map(l => l.connections))
-    ).filter(node => node.identifier != identifier);
+    return uniqueArray(flat(this.getLinksByIdentifier(identifier).map(l => l.connections))).filter(
+      node => node.identifier != identifier
+    );
   };
 
   calcGraphOrder = () => {
@@ -117,24 +113,17 @@ export default class Grafo {
     return {
       min: nodeOrders[0],
       max: nodeOrders[nodeOrders.length - 1],
-      med:
-        nodeOrders.reduce((total, val) => (total = total + val)) /
-        nodeOrders.length
+      med: nodeOrders.reduce((total, val) => (total = total + val)) / nodeOrders.length
     };
   };
 
-  breadthFirstSearch(
-    node: GraphNode = this.nodes[0],
-    exploredNodes: GraphNode[] = []
-  ): boolean {
+  breadthFirstSearch(node: GraphNode = this.nodes[0], exploredNodes: GraphNode[] = []): boolean {
     if (!arrayContain(exploredNodes, node)) {
       exploredNodes.push(node);
     }
 
     const connectedNodes = this.getAdjacentNodesByIdentifier(node.identifier);
-    const toBeExploredNodes = connectedNodes.filter(
-      n => !arrayContain(exploredNodes, n)
-    );
+    const toBeExploredNodes = connectedNodes.filter(n => !arrayContain(exploredNodes, n));
 
     if (toBeExploredNodes.length > 0) {
       for (let eNode of toBeExploredNodes) {
@@ -162,20 +151,18 @@ export default class Grafo {
       }
     });
 
-    return evenLinks == 0 || evenLinks == 2
-  }
+    return evenLinks == 0 || evenLinks == 2;
+  };
 
   getSimplifiedTable = (filterValue: string = "") => {
-    const simplified = this.links.map((x:any) => ({
+    const simplified = this.links.map((x: any) => ({
       identifier: x.identifier,
       value: x.value,
-      connections: x.connections.map((n:GraphNode) => n.identifier)
-    }))
+      connections: x.connections.map((n: GraphNode) => n.identifier)
+    }));
 
-    return filterValue
-    ? simplified.filter(link => link.value === filterValue)
-    : simplified;
-  }
+    return filterValue ? simplified.filter(link => link.value === filterValue) : simplified;
+  };
 
   getEulerianPath = () => {
     const links = this.links.map(l => l.connections.map(c => c.identifier));
