@@ -14,11 +14,11 @@ export default class PriorityQueue {
 
   enqueue = (queueObject:queueObject) => {
     this.queue.push(queueObject);
-    this.sortQueue();
+    this.sortQueue(this.queue);
   }
 
-  sortQueue = () => {
-    this.queue.sort((obj1, obj2) => obj2.priority - obj1.priority);
+  sortQueue = (queue: queueObject[]) => {
+    queue.sort((obj1, obj2) => obj2.priority - obj1.priority);
   }
 
   dequeue = () => {
