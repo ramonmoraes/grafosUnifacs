@@ -11,7 +11,6 @@ import {
 import { arrayContain } from "./utils";
 import PriorityQueue from "./utils/priorityQueue";
 import GraphNode from "./graphNode";
-import { nodeInternals } from "stack-utils";
 
 export type graphPositionMap = {
   [key: string]: number;
@@ -168,7 +167,6 @@ export default class GraphMatrix {
 
       graph.getAdjacentNodesByIdentifier(currNode.identifier).forEach(neighbor => {
         if (arrayContain(visitedNodes, neighbor)) return;
-        console.log(neighbor.identifier);
         const nodeDist = this.getDistBetweenNodes(currNode, neighbor);
         
         priorityQueue.enqueue({
@@ -180,10 +178,29 @@ export default class GraphMatrix {
         });
       });
     }
-    console.log(
-      priorityQueue.dequeued.map(
-        x => ({node: x.object.node.identifier, prev:x.object.prev.identifier, priority: x.priority})
-      )
-    )
+    
+    const distances = this.getBaseDistance(startNode)
+    for(let queueObject of priorityQueue.dequeued) {
+      const node = queueObject.object.node.identifier;
+      const prev = queueObject.object.prev.identifier;
+      const weigth = queueObject.priority;
+      const currNodeDist = distances[node].distance;
+      if (currNodeDist === Number.POSITIVE_INFINITY || queueObject.object.node === startNode) {
+        distances[node] = {
+          path: [...distances[prev].path, node],
+          distance: weigth
+        }
+        continue;
+      }
+      
+      if (currNodeDist < weigth) {
+        distances[node] = {
+          distance:weigth,
+          path: [...distances[prev].path, node]
+        }
+      }
+    }
+
+    console.log(distances);
   };
 }
