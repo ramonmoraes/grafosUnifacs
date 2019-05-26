@@ -9,7 +9,9 @@ import {
   matrix
 } from "./matrix";
 import { arrayContain } from "./utils";
+import PriorityQueue from "./utils/priorityQueue";
 import GraphNode from "./graphNode";
+import { nodeInternals } from "stack-utils";
 
 export type graphPositionMap = {
   [key: string]: number;
@@ -72,15 +74,8 @@ export default class GraphMatrix {
   bellman = (startNodeIndex: number = 3) => {
     const { graph } = this;
 
-    const distances: graphPathDistance = {};
     const startNode = graph.nodes[startNodeIndex];
-
-    graph.nodes.forEach(node => {
-      distances[node.identifier] = {
-        distance: node === startNode ? 0 : Number.POSITIVE_INFINITY,
-        path: []
-      };
-    });
+    const distances = this.getBaseDistance(startNode);
 
     const exploredNodes: GraphNode[] = [];
     let toBeExploredNodes: GraphNode[] = [startNode];
@@ -113,12 +108,24 @@ export default class GraphMatrix {
     console.log(distances);
   };
 
-  getDistBetweenNodes = (n1:GraphNode, n2:GraphNode):number => {
-    const {graphPositionMap, matrix} = this;
+  getBaseDistance = (startNode: GraphNode) => {
+    const { graph } = this;
+    const distances: graphPathDistance = {};
+    graph.nodes.forEach(node => {
+      distances[node.identifier] = {
+        distance: node === startNode ? 0 : Number.POSITIVE_INFINITY,
+        path: []
+      };
+    });
+    return distances;
+  };
+
+  getDistBetweenNodes = (n1: GraphNode, n2: GraphNode): number => {
+    const { graphPositionMap, matrix } = this;
     const pos1 = graphPositionMap[n1.identifier];
     const pos2 = graphPositionMap[n2.identifier];
     return matrix[pos1][pos2];
-  }
+  };
 
   getAdjacentDijkstraMatrix = () => {
     const { matrix } = this;
@@ -139,4 +146,44 @@ export default class GraphMatrix {
     return dijkstraMatrix;
   };
 
+  dijkstra = (startNodeIndex: number = 3) => {
+    const { graph } = this;
+    const startNode = graph.nodes[startNodeIndex];
+
+    const visitedNodes:GraphNode[] = []
+    const priorityQueue = new PriorityQueue();
+    priorityQueue.enqueue({
+      object: {
+        node: startNode,
+        prev: startNode
+      },
+      priority: 0
+    });
+
+    while (priorityQueue.queue.length != 0) {
+      const currDequeuedObj = priorityQueue.dequeue(); 
+      const currNode = currDequeuedObj.object.node;
+      const currNodeDist = currDequeuedObj.priority;
+      visitedNodes.push(currNode);
+
+      graph.getAdjacentNodesByIdentifier(currNode.identifier).forEach(neighbor => {
+        if (arrayContain(visitedNodes, neighbor)) return;
+        console.log(neighbor.identifier);
+        const nodeDist = this.getDistBetweenNodes(currNode, neighbor);
+        
+        priorityQueue.enqueue({
+          object: {
+            node: neighbor,
+            prev: currNode
+          },
+          priority: nodeDist + currNodeDist,
+        });
+      });
+    }
+    console.log(
+      priorityQueue.dequeued.map(
+        x => ({node: x.object.node.identifier, prev:x.object.prev.identifier, priority: x.priority})
+      )
+    )
+  };
 }

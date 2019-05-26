@@ -2,15 +2,15 @@
   "nodes": [
     {
       "identifier": "peu",
-      "attributes": { "lang": ["pt"], "age": 30 }
+      "attributes": { "lang": ["pt", "fr"], "age": 30 }
     },
     {
       "identifier": "dart",
-      "attributes": { "lang": ["en", "pt"], "age": 21 }
+      "attributes": { "lang": ["en", "jp"], "age": 21 }
     },
     {
       "identifier": "ismelo",
-      "attributes": { "lang": ["en", "fr", "al"], "age": 12 }
+      "attributes": { "lang": ["pt", "al"], "age": 12 }
     },
     {
       "identifier": "fgod",
@@ -18,7 +18,10 @@
     },
     {
       "identifier": "murtinha",
-      "attributes": { "lang": ["es", "al"] }
+      "attributes": { "lang": ["en", "al"] }
+    },{
+      "identifier": "boku",
+      "attributes": { "lang": ["jp", "fr"] }
     }
   ]
 }
