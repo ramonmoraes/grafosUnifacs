@@ -73,6 +73,7 @@ export default class Grafo {
         }
       })
     );
+    this.createLinks();
   };
 
   addNode = (node: GraphNode) => {
