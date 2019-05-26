@@ -64,6 +64,17 @@ export default class Grafo {
     );
   };
 
+  addRawNode = (identifier: string, langs: string[]) => {
+    this.nodes.push(
+      new GraphNode({
+        identifier,
+        attributes: {
+          langs
+        }
+      })
+    );
+  };
+
   addNode = (node: GraphNode) => {
     this.nodes.push(node);
   };
