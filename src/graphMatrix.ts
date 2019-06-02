@@ -1,8 +1,5 @@
 import Graph from "./graph";
 import {
-  multiplyMatrix,
-  sumMatrix,
-  warshall,
   dijkstra,
   logMatrix,
   getEmptyMatrix,
@@ -39,7 +36,7 @@ export default class GraphMatrix {
     this.setGraphMaps();
 
     this.matrix = this.adjacentGraphMatrix();
-    this.matrix = this.getAdjacentDijkstraMatrix();
+    // this.matrix = this.getAdjacentDijkstraMatrix();
   }
 
   setGraphMaps = () => {
@@ -203,4 +200,22 @@ export default class GraphMatrix {
 
     console.log(distances);
   };
+
+  logMatrix = (matrix: matrix = this.matrix) => {
+    const labels = Object.keys(this.graphPositionMap);
+    const labaledMatrix: any = [
+      ["", ...labels],
+      ...matrix
+    ];
+
+    for (let i = 0; i < matrix.length; i++) {
+      const row = [
+        this.reverseGraphPositionMap[i],
+        ...matrix[i]
+      ];
+      labaledMatrix[i + 1] = row;
+    }
+
+    console.table(labaledMatrix)
+  }
 }
