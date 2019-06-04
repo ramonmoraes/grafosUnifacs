@@ -66,7 +66,6 @@ export default class CliTool {
         msg: "Identificar a existência de um caminho de Euler",
         func: async (): Promise<string> => `${g.hasEulerianPath()}`
       }
-      // {msg: "Permita a inserção e a remoção de uma aresta entre 2 vértices", func: g.removeLinkByIdentifier }
     ];
   };
 
@@ -75,16 +74,20 @@ export default class CliTool {
       {
         msg: "Matrix adjacências",
         func: async (): Promise<string> => {
-          const matrix = new GraphMatrix(g).adjacentGraphMatrix({ twoWays: false });
-          console.log(matrix);
+          const gm = new GraphMatrix(g);
+          const matrix = gm.adjacentGraphMatrix({ twoWays: false });
+          gm.logMatrix(matrix);
           return "Done";
         }
       },
       {
         msg: "Matrix adjacências de Floyd-Warshall",
         func: async (): Promise<string> => {
-          const matrix = new GraphMatrix(g).adjacentGraphMatrix({ twoWays: false });
-          console.log(warshall(matrix, g.nodes.length));
+          const gm = new GraphMatrix(g);
+          const matrix = gm.adjacentGraphMatrix({ twoWays: false });
+          gm.logMatrix(warshall(matrix, g.nodes.length));
+          // const matrix = new GraphMatrix(g).adjacentGraphMatrix({ twoWays: false });
+          // console.log(warshall(matrix, g.nodes.length));
           return "Done";
         }
       },
@@ -135,7 +138,7 @@ export default class CliTool {
       }
       try {
         console.log(await questions[parseInt(resp)].func());
-      } catch(err) {
+      } catch (err) {
         console.error(err);
         console.log("Valor não encontrado");
       }
